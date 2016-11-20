@@ -58,14 +58,7 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
-        </dependency>
-		
-        <!-- commons lang for random strings -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
-        </dependency>
+        </dependency>	
         
         <dependency>
             <groupId>junit</groupId>

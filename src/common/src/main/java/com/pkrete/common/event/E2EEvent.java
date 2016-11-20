@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.pkrete.common;
+package com.pkrete.common.event;
 
 import java.io.Serializable;
 import java.util.Date;

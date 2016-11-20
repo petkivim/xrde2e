@@ -23,7 +23,8 @@
  */
 package com.pkrete.xrde2e.client.thread;
 
-import com.pkrete.common.E2EEvent;
+import com.pkrete.common.event.E2EEvent;
+import com.pkrete.common.event.E2EEventQueue;
 import com.pkrete.xrd4j.client.SOAPClient;
 import com.pkrete.xrd4j.client.SOAPClientImpl;
 import com.pkrete.xrd4j.common.message.ServiceRequest;
@@ -99,8 +100,8 @@ public class E2EWorker implements Runnable {
                 LOGGER.error("Thread #{} sending message #{} failed, ID : \"{}\".", this.number, requestCount, reqId);
                 LOGGER.error(ex.getMessage(), ex);
             }
-            // Create new E2EEvent for the storage
-            E2EEvent event = new E2EEvent(request.getProducer().toString(), request.getSecurityServer().toString(), reqId, status, faultCode, throughput, begin, end);
+            // Create new E2EEvent for the storage and put it in the queue
+            E2EEventQueue.getInstance().put(new E2EEvent(request.getProducer().toString(), request.getSecurityServer().toString(), reqId, status, faultCode, throughput, begin, end));
             // Sleep...
             if (this.interval > 0) {
                 try {
