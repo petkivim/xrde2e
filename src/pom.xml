@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.pkrete</groupId>
+    <artifactId>xrde2e</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>XRdE2E</name>
+    <inceptionYear>2016</inceptionYear>
+    <description>
+        XRdE2E is a Java end-to-end monitoring tool for X-Road security servers.
+    </description>
+    <url>https://github.com/petkivim/xrde2e</url>
+    <modules>
+        <module>client</module>
+        <module>common</module>
+        <module>backend</module>
+    </modules>
+    <properties>
+        <jdk.version>1.8</jdk.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:git@github.com:petkivim/xrde2e.git</connection>
+        <developerConnection>scm:git:git@github.com:petkivim/xrde2e.git</developerConnection>
+        <url>git@github.com:petkivim/xrde2e.git</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>petkivim</id>
+            <name>Petteri Kivimäki</name>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>+2</timezone>
+        </developer>
+    </developers>
+</project>
