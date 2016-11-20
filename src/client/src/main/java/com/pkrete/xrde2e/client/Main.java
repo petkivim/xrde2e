@@ -25,7 +25,6 @@
 package com.pkrete.xrde2e.client;
 
 import com.pkrete.xrd4j.common.member.ConsumerMember;
-import com.pkrete.xrd4j.common.member.SecurityServer;
 import com.pkrete.xrd4j.common.message.ServiceRequest;
 import com.pkrete.xrd4j.common.util.MessageHelper;
 import com.pkrete.xrd4j.common.util.PropertiesUtil;

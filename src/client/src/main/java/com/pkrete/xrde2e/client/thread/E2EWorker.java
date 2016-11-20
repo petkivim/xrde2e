@@ -23,11 +23,13 @@
  */
 package com.pkrete.xrde2e.client.thread;
 
+import com.pkrete.common.E2EEvent;
 import com.pkrete.xrd4j.client.SOAPClient;
 import com.pkrete.xrd4j.client.SOAPClientImpl;
 import com.pkrete.xrd4j.common.message.ServiceRequest;
 import com.pkrete.xrd4j.common.message.ServiceResponse;
 import com.pkrete.xrd4j.common.util.MessageHelper;
+import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,20 +66,24 @@ public class E2EWorker implements Runnable {
             // Init variables for logging
             long throughput = 0;
             boolean status = false;
+            String faultCode = "";
+            Date begin = null;
+            Date end = null;
             // Get unique ID for the message
             String reqId = MessageHelper.generateId();
-            try {
-                String faultCode = "";
+            try {             
                 // Set message ID
                 request.setId(reqId);
                 LOGGER.debug("Thread #{} sending message #{}, ID : \"{}\".", this.number, requestCount, reqId);
                 long msgStartTime = System.currentTimeMillis();
+                begin = new Date();
                 // Create new client for sending the message
                 SOAPClient client = new SOAPClientImpl();
                 // Send the ServiceRequest, result is returned as ServiceResponse object
                 ServiceResponse<String, String> serviceResponse = client.listMethods(request, url);
                 // Calculate message throughput time
                 throughput = System.currentTimeMillis() - msgStartTime;
+                end = new Date();
                 // Check SOAP response for SOAP Fault
                 if (serviceResponse.hasError()) {
                     status = false;
@@ -93,6 +99,8 @@ public class E2EWorker implements Runnable {
                 LOGGER.error("Thread #{} sending message #{} failed, ID : \"{}\".", this.number, requestCount, reqId);
                 LOGGER.error(ex.getMessage(), ex);
             }
+            // Create new E2EEvent for the storage
+            E2EEvent event = new E2EEvent(request.getProducer().toString(), request.getSecurityServer().toString(), reqId, status, faultCode, throughput, begin, end);
             // Sleep...
             if (this.interval > 0) {
                 try {

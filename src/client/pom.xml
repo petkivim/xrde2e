@@ -20,6 +20,7 @@
         <slf4j.version>1.7.7</slf4j.version>
         <log4j.version>1.2.16</log4j.version>
         <xrd4j.version>0.0.14-SNAPSHOT</xrd4j.version>
+        <xrde2e.version>0.0.1-SNAPSHOT</xrde2e.version>
         <junit.version>3.8.1</junit.version>
     </properties>
     <dependencies>
@@ -32,6 +33,11 @@
             <groupId>com.pkrete.xrd4j</groupId>
             <artifactId>client</artifactId>
             <version>${xrd4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.pkrete.xrde2e</groupId>
+            <artifactId>common</artifactId>
+            <version>${xrde2e.version}</version>
         </dependency>
 
         <!-- Logging API: SLF4J -->
