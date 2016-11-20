@@ -29,7 +29,7 @@ import com.pkrete.xrd4j.common.member.SecurityServer;
 import com.pkrete.xrd4j.common.message.ServiceRequest;
 import com.pkrete.xrd4j.common.util.MessageHelper;
 import com.pkrete.xrd4j.common.util.PropertiesUtil;
-import com.pkrete.xrde2e.client.thread.Worker;
+import com.pkrete.xrde2e.client.thread.E2EWorker;
 import com.pkrete.xrde2e.client.util.ApplicationHelper;
 import com.pkrete.xrde2e.client.util.Constants;
 import java.util.List;
@@ -87,7 +87,7 @@ public class Main {
         ExecutorService executor = Executors.newFixedThreadPool(threadPoolSize);
         for (int i = 0; i < this.targets.size(); i++) {
             LOGGER.debug("Starting thread #{}.", i);
-            Runnable worker = new Worker(url, interval, this.targets.get(i));
+            Runnable worker = new E2EWorker(url, interval, this.targets.get(i));
             executor.execute(worker);
         }
         executor.shutdown();

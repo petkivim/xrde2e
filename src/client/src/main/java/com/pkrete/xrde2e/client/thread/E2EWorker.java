@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Petteri Kivimäki
  */
-public class Worker implements Runnable {
+public class E2EWorker implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Runnable.class);
     private final String url;
@@ -46,7 +46,7 @@ public class Worker implements Runnable {
     private static int count = 0;
     private final int number;
 
-    public Worker(String url, int interval, ServiceRequest request) {
+    public E2EWorker(String url, int interval, ServiceRequest request) {
         this.url = url;
         this.interval = interval;
         this.request = request;
