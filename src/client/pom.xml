@@ -16,4 +16,97 @@
         security servers and stores it.
     </description>
     <url>https://github.com/petkivim/xrde2e</url>
+    <properties>
+        <slf4j.version>1.7.7</slf4j.version>
+        <log4j.version>1.2.16</log4j.version>
+        <xrd4j.version>0.0.14-SNAPSHOT</xrd4j.version>
+        <junit.version>3.8.1</junit.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.pkrete.xrd4j</groupId>
+            <artifactId>common</artifactId>
+            <version>${xrd4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.pkrete.xrd4j</groupId>
+            <artifactId>client</artifactId>
+            <version>${xrd4j.version}</version>
+        </dependency>
+
+        <!-- Logging API: SLF4J -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+		
+        <!-- commons lang for random strings -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>		
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.pkrete.xrde2e.client.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <finalName>bundled-${project.artifactId}-${project.version}</finalName>
+                </configuration>
+            </plugin>
+        </plugins>
+        <defaultGoal>package</defaultGoal>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 </project>
