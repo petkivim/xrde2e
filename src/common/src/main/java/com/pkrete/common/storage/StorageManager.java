@@ -33,9 +33,6 @@ import com.pkrete.common.event.E2EEvent;
  */
 public interface StorageManager {
 
-    public boolean insert(E2EEvent event);
+    public boolean add(E2EEvent event);
 
-    public boolean update(E2EEvent event);
-
-    public boolean delete(E2EEvent event);
 }

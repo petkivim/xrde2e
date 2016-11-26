@@ -49,6 +49,12 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>		
+        
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.3.0</version>
+        </dependency>
     </dependencies>
     <build>      
         <defaultGoal>package</defaultGoal>

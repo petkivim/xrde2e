@@ -24,6 +24,10 @@
  */
 package com.pkrete.xrde2e.client;
 
+import com.pkrete.common.event.E2EEventQueueProcessor;
+import com.pkrete.common.exception.XRdE2EException;
+import com.pkrete.common.mongodb.MongoDbManager;
+import com.pkrete.common.storage.StorageManager;
 import com.pkrete.xrd4j.common.member.ConsumerMember;
 import com.pkrete.xrd4j.common.message.ServiceRequest;
 import com.pkrete.xrd4j.common.util.MessageHelper;
@@ -71,11 +75,15 @@ public class Main {
         LOGGER.debug("Setting XRdE2E properties.");
         String url = settings.getProperty(Constants.PROPERTIES_PROXY);
         int interval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_INTERVAL));
+        String dbHost = settings.getProperty(Constants.PROPERTIES_DB_HOST);
+        int dbPort = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DB_PORT));
         int threadPoolSize = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_THREAD_POOL_SIZE));
 
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_PROXY, url);
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_INTERVAL, interval);
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_THREAD_POOL_SIZE, threadPoolSize);
+        LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DB_HOST, dbHost);
+        LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DB_PORT, dbPort);
 
         this.consumer = ApplicationHelper.extractConsumer(settings.getProperty(Constants.PROPERTIES_CONSUMER));
         this.targets = ApplicationHelper.extractTargets(settings, this.consumer);
@@ -83,6 +91,15 @@ public class Main {
         LOGGER.debug("Setting XRdE2E properties done.");
 
         LOGGER.info("Start processing.");
+        // Create new storage manager
+        StorageManager storageManager = new MongoDbManager(dbHost, dbPort);
+        // Initialize event queue processor
+        E2EEventQueueProcessor eventQueueProcessor = new E2EEventQueueProcessor(storageManager);
+        // Create new thread for event processing
+        Thread eventQueueProcessorThread = new Thread(eventQueueProcessor);
+        // Start event processor
+        eventQueueProcessorThread.start();
+        // Create executor for monitoring threads
         ExecutorService executor = Executors.newFixedThreadPool(threadPoolSize);
         for (int i = 0; i < this.targets.size(); i++) {
             LOGGER.debug("Starting thread #{}.", i);

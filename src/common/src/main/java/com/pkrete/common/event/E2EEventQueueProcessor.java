@@ -23,6 +23,7 @@
  */
 package com.pkrete.common.event;
 
+import com.pkrete.common.storage.StorageManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,12 +45,16 @@ public class E2EEventQueueProcessor implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(E2EEventQueueProcessor.class);
     private final E2EEventQueue queue;
+    private final StorageManager storageManager;
 
     /**
      * Constructs and initializes a new E2EEventQueueProcessor object.
+     * @param storageManager storage manager is responsible for storing 
+     * E2E events to the storage
      */
-    public E2EEventQueueProcessor() {
+    public E2EEventQueueProcessor(StorageManager storageManager) {
         this.queue = E2EEventQueue.getInstance();
+        this.storageManager = storageManager;
         LOGGER.info("E2EEventQueueProcessor initiated.");
     }
 
@@ -62,7 +67,8 @@ public class E2EEventQueueProcessor implements Runnable {
         LOGGER.info("E2EEventQueueProcessor started.");
         E2EEvent event;
         while ((event = queue.take()) != null && !Thread.currentThread().isInterrupted()) {
-
+            LOGGER.debug("New event received: \"{}\"", event.toString());
+            this.storageManager.add(event);
         }
     }
 }

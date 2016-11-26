@@ -26,6 +26,18 @@
         <level value="INFO"/>
         <appender-ref ref="console"/>
     </logger>
+    <logger name="org.mongodb" additivity="false">
+        <level value="WARN"/>
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="com.pkrete.common.mongodb" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="com.pkrete.common.event" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="console"/>
+    </logger>
     <logger name="com.pkrete.xrde2e.client" additivity="false">
         <level value="DEBUG"/>
         <appender-ref ref="console"/>

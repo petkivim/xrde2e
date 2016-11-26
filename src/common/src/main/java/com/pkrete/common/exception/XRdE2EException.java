@@ -21,33 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.pkrete.xrde2e.client.util;
+package com.pkrete.common.exception;
 
 /**
- * This class defines all the constants used in this application.
+ * This class extends the Exception class and it represents a generic XRdE2E
+ * exception.
  *
  * @author Petteri Kivimäki
  */
-public class Constants {
+public class XRdE2EException extends Exception {
 
     /**
-     * Configuration file names
+     * Constructs and initializes a new XRdE2EException object with the given
+     * error message.
+     *
+     * @param message error message that's shown
      */
-    public static final String PROPERTIES_FILE = "xrde2e.properties";
-    public static final String LOG4J_SETTINGS_FILE = "log4j.xml";
-    /**
-     * Parameter names
-     */
-    public static final String PROPERTIES_DIR_PARAM_NAME = "propertiesDirectory";
-    /**
-     * Properties names
-     */
-    public static final String PROPERTIES_PROXY = "proxy";
-    public static final String PROPERTIES_THREAD_POOL_SIZE = "threadPoolSize";
-    public static final String PROPERTIES_INTERVAL = "interval";
-    public static final String PROPERTIES_CONSUMER = "consumer";
-    public static final String PROPERTIES_SUBSYSTEM = "subsystem";
-    public static final String PROPERTIES_SERVER = "server";
-    public static final String PROPERTIES_DB_HOST = "db.host";
-    public static final String PROPERTIES_DB_PORT = "db.port";
+    public XRdE2EException(final String message) {
+        super(message);
+    }
 }

@@ -211,8 +211,7 @@ public class E2EEvent implements Serializable {
     public String toString() {
         StringBuilder builder = new StringBuilder(this.producerMember).append("::");
         builder.append(this.securityServer).append("::");
-        builder.append(this.begin).append("::");
-        builder.append(this.end);
+        builder.append(this.requestId);
         return builder.toString();
     }
 
