@@ -23,12 +23,16 @@
  */
 package com.pkrete.common.mongodb;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.UpdateOptions;
+import com.mongodb.client.result.UpdateResult;
 import com.pkrete.common.event.E2EEvent;
 import com.pkrete.common.storage.StorageManager;
 import java.util.Date;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,9 +44,6 @@ import org.slf4j.LoggerFactory;
  */
 public class MongoDbManager extends AbstractMongoDbClient implements StorageManager {
 
-    private final String host;
-    private final int port;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(MongoDbManager.class);
 
     /**
@@ -52,8 +53,6 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
      * @param port database port
      */
     public MongoDbManager(String host, int port) {
-        this.host = host;
-        this.port = port;
         super.connect(host, port);
     }
 
@@ -68,8 +67,9 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
         if (!this.insert("xrde2emonitoring", "historical_state", event)) {
             return false;
         }
-        this.delete("xrde2emonitoring", "current_state", event);
-        this.insert("xrde2emonitoring", "current_state", event);
+        if (!this.update("xrde2emonitoring", "current_state", event)) {
+            return false;
+        }
         return true;
     }
 
@@ -121,6 +121,42 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
             Document document = new Document();
             document.put("securityServer", event.getSecurityServer());
             table.deleteOne(document);
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Updates the given E2EEvent to the database based on the security server
+     * code. If an item with the given security server code does not exist,
+     * it is created.
+     *
+     * @param database database name
+     * @param collection collection name
+     * @param event E2EEvent to be updated to the database
+     * @return true if and only the event was successfully updated, otherwise
+     * false
+     */
+    protected boolean update(String database, String collection, E2EEvent event) {
+        try {
+            MongoDatabase db = mongoClient.getDatabase(database);
+            MongoCollection table = db.getCollection(collection);
+            Document document = new Document();
+            document.put("producerMember", event.getProducerMember());
+            document.put("securityServer", event.getSecurityServer());
+            document.put("requestId", event.getRequestId());
+            document.put("status", event.isStatus());
+            document.put("faultCode", event.getFaultCode());
+            document.put("duration", event.getDuration());
+            document.put("begin", event.getBegin());
+            document.put("end", event.getEnd());
+            document.put("createdDate", new Date());
+            BasicDBObject query = new BasicDBObject();
+            Bson newDocument = new Document("$set", document);
+            query.append("securityServer", event.getSecurityServer());
+            table.updateOne(query, newDocument, (new UpdateOptions()).upsert(true));
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
             return false;
