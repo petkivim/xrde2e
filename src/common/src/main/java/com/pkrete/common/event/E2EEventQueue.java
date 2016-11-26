@@ -53,7 +53,7 @@ public class E2EEventQueue {
      * defined as private.
      */
     private E2EEventQueue() {
-        this.queue = new LinkedBlockingQueue<E2EEvent>();
+        this.queue = new LinkedBlockingQueue<>();
     }
 
     /**
