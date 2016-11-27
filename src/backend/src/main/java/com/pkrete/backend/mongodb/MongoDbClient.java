@@ -63,7 +63,7 @@ public class MongoDbClient implements StorageClient {
             List<E2EEvent> results = new ArrayList<>();
             MongoDatabase db = mongoClient.getDatabase("xrde2emonitoring");
             MongoCollection table = db.getCollection("current_state");
-            MongoCursor<Document> cursor = table.find().iterator();
+            MongoCursor<Document> cursor = table.find().sort(new Document("securityServer", 1)).iterator();
             try {
                 while (cursor.hasNext()) {
                     results.add(this.documentToE2EEvent(cursor.next()));
