@@ -21,20 +21,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.pkrete.common.storage;
+package com.pkrete.backend.api.v1;
 
 import com.pkrete.common.event.E2EEvent;
+import com.pkrete.common.storage.StorageClient;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * This interface defines operations for querying data from storage.
+ * This class implements a REST API for accessing to E2E monitoring data.
  *
  * @author Petteri Kivimäki
  */
-public interface StorageClient {
+@RestController
+public class APIController {
 
-    public List<E2EEvent> getAllCurrent();
+    @Autowired
+    private StorageClient storageClient;
 
-    public List<E2EEvent> getHistorical(String securityServer, int limit);
+    @RequestMapping("/")
+    public String index() {
+        return "";
+    }
 
+    @RequestMapping(method = GET, path = "/current")
+    public List<E2EEvent> allCurrent() {
+        return this.storageClient.getAllCurrent();
+    }
+
+    @RequestMapping(method = GET, value = "/historical/{securityServer:.+}")
+    public List<E2EEvent> historical(@PathVariable String securityServer, @RequestParam(value = "limit", defaultValue = "0") int limit) {
+        return this.storageClient.getHistorical(securityServer, limit);
+    }
 }

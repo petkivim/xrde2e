@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.pkrete.common.mongodb;
+package com.pkrete.xrde2e.client.mongodb;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
