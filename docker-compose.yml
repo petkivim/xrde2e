@@ -1,5 +1,11 @@
 version: '2'
 services:
+  xrde2e-ui:
+    image: xrde2e-ui:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - xrde2e-backend
   xrde2e-client:
     image: xrde2e-client:latest
     depends_on:
