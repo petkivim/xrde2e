@@ -1,0 +1,61 @@
+table {
+    width: 80%;
+}
+
+table td {
+    text-align: center;
+}
+
+table td.col1 {
+    width: 20%;
+}
+
+table td.col2 {
+    width: 5%;
+}
+
+table td.col3 {
+    width: 15%;
+}
+
+table td.col4 {
+    width: 20%;
+}
+
+table td.col5 {
+    width: 5%;
+}
+
+table td.col6 {
+    width: 35%;
+}
+
+table td {
+    border-top: 1px solid #ddd;
+}
+
+span.success {
+    background-color: #5cb85c;
+}
+
+span.failure {
+    background-color: #fb1806;
+}
+
+.label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+#updated {
+    text-align: center;
+    margin-top: 2em;
+}
