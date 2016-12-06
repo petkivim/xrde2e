@@ -76,18 +76,17 @@ public class Main {
         int interval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_INTERVAL));
         String dbHost = settings.getProperty(Constants.PROPERTIES_DB_HOST);
         int dbPort = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DB_PORT));
-        int threadPoolSize = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_THREAD_POOL_SIZE));
 
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_PROXY, url);
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_INTERVAL, interval);
-        LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_THREAD_POOL_SIZE, threadPoolSize);
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DB_HOST, dbHost);
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DB_PORT, dbPort);
 
         this.consumer = ApplicationHelper.extractConsumer(settings.getProperty(Constants.PROPERTIES_CONSUMER));
         this.targets = ApplicationHelper.extractTargets(settings, this.consumer);
-
+        int threadPoolSize = this.targets.size();
         LOGGER.debug("Setting XRdE2E properties done.");
+        LOGGER.info("{} monitoring targets loaded.", threadPoolSize);
 
         LOGGER.info("Start processing.");
         // Create new storage manager

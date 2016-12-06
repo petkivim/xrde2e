@@ -43,7 +43,6 @@ public class Constants {
      * Properties names
      */
     public static final String PROPERTIES_PROXY = "proxy";
-    public static final String PROPERTIES_THREAD_POOL_SIZE = "threadPoolSize";
     public static final String PROPERTIES_INTERVAL = "interval";
     public static final String PROPERTIES_CONSUMER = "consumer";
     public static final String PROPERTIES_SUBSYSTEM = "subsystem";
