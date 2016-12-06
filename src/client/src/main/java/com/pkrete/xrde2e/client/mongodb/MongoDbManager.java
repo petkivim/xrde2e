@@ -53,6 +53,8 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
      */
     public MongoDbManager(String host, int port) {
         super.connect(host, port);
+        // Remove all the entries from the current_state collection
+        this.deleteAll("xrde2emonitoring", "current_state");
     }
 
     @Override
@@ -129,8 +131,8 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
 
     /**
      * Updates the given E2EEvent to the database based on the security server
-     * code. If an item with the given security server code does not exist,
-     * it is created.
+     * code. If an item with the given security server code does not exist, it
+     * is created.
      *
      * @param database database name
      * @param collection collection name
@@ -161,5 +163,26 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
             return false;
         }
         return true;
+    }
+
+    /**
+     * Deletes all the entries from the given collection.
+     *
+     * @param database database name
+     * @param collection collection name
+     * @return true if and only if all the entries were successfully deleted,
+     * otherwise false
+     */
+    protected boolean deleteAll(String database, String collection) {
+        try {
+            MongoDatabase db = mongoClient.getDatabase(database);
+            MongoCollection table = db.getCollection(collection);
+            table.deleteMany(new Document());
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+            return false;
+        }
+        return true;
+
     }
 }
