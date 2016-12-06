@@ -29,6 +29,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
 import com.pkrete.xrde2e.common.event.E2EEvent;
 import com.pkrete.xrde2e.common.storage.StorageManager;
+import com.pkrete.xrde2e.common.util.Constants;
 import java.util.Date;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -54,7 +55,7 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
     public MongoDbManager(String host, int port) {
         super.connect(host, port);
         // Remove all the entries from the current_state collection
-        this.deleteAll("xrde2emonitoring", "current_state");
+        this.deleteAll(Constants.DB_NAME, Constants.TABLE_CURRENT_STATE);
     }
 
     @Override
@@ -65,10 +66,10 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
      * @return true or false
      */
     public boolean add(E2EEvent event) {
-        if (!this.insert("xrde2emonitoring", "historical_state", event)) {
+        if (!this.insert(Constants.DB_NAME, Constants.TABLE_HISTORICAL_STATE, event)) {
             return false;
         }
-        if (!this.update("xrde2emonitoring", "current_state", event)) {
+        if (!this.update(Constants.DB_NAME, Constants.TABLE_CURRENT_STATE, event)) {
             return false;
         }
         return true;
@@ -88,15 +89,15 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
             MongoDatabase db = mongoClient.getDatabase(database);
             MongoCollection table = db.getCollection(collection);
             Document document = new Document();
-            document.put("producerMember", event.getProducerMember());
-            document.put("securityServer", event.getSecurityServer());
-            document.put("requestId", event.getRequestId());
-            document.put("status", event.isStatus());
-            document.put("faultCode", event.getFaultCode());
-            document.put("duration", event.getDuration());
-            document.put("begin", event.getBegin());
-            document.put("end", event.getEnd());
-            document.put("createdDate", new Date());
+            document.put(Constants.COLUMN_PRODUCER_MEMBER, event.getProducerMember());
+            document.put(Constants.COLUMN_SECURITY_SERVER, event.getSecurityServer());
+            document.put(Constants.COLUMN_REQUEST_ID, event.getRequestId());
+            document.put(Constants.COLUMN_STATUS, event.isStatus());
+            document.put(Constants.COLUMN_FAULT_CODE, event.getFaultCode());
+            document.put(Constants.COLUMN_DURATION, event.getDuration());
+            document.put(Constants.COLUMN_BEGIN, event.getBegin());
+            document.put(Constants.COLUMN_END, event.getEnd());
+            document.put(Constants.COLUMN_CREATED_DATE, new Date());
             table.insertOne(document);
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
@@ -120,7 +121,7 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
             MongoDatabase db = mongoClient.getDatabase(database);
             MongoCollection table = db.getCollection(collection);
             Document document = new Document();
-            document.put("securityServer", event.getSecurityServer());
+            document.put(Constants.COLUMN_SECURITY_SERVER, event.getSecurityServer());
             table.deleteOne(document);
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
@@ -145,18 +146,18 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
             MongoDatabase db = mongoClient.getDatabase(database);
             MongoCollection table = db.getCollection(collection);
             Document document = new Document();
-            document.put("producerMember", event.getProducerMember());
-            document.put("securityServer", event.getSecurityServer());
-            document.put("requestId", event.getRequestId());
-            document.put("status", event.isStatus());
-            document.put("faultCode", event.getFaultCode());
-            document.put("duration", event.getDuration());
-            document.put("begin", event.getBegin());
-            document.put("end", event.getEnd());
-            document.put("createdDate", new Date());
+            document.put(Constants.COLUMN_PRODUCER_MEMBER, event.getProducerMember());
+            document.put(Constants.COLUMN_SECURITY_SERVER, event.getSecurityServer());
+            document.put(Constants.COLUMN_REQUEST_ID, event.getRequestId());
+            document.put(Constants.COLUMN_STATUS, event.isStatus());
+            document.put(Constants.COLUMN_FAULT_CODE, event.getFaultCode());
+            document.put(Constants.COLUMN_DURATION, event.getDuration());
+            document.put(Constants.COLUMN_BEGIN, event.getBegin());
+            document.put(Constants.COLUMN_END, event.getEnd());
+            document.put(Constants.COLUMN_CREATED_DATE, new Date());
             BasicDBObject query = new BasicDBObject();
             Bson newDocument = new Document("$set", document);
-            query.append("securityServer", event.getSecurityServer());
+            query.append(Constants.COLUMN_SECURITY_SERVER, event.getSecurityServer());
             table.updateOne(query, newDocument, (new UpdateOptions()).upsert(true));
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);

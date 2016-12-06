@@ -30,6 +30,7 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.pkrete.xrde2e.common.event.E2EEvent;
 import com.pkrete.xrde2e.common.storage.StorageClient;
+import com.pkrete.xrde2e.common.util.Constants;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -61,9 +62,9 @@ public class MongoDbClient implements StorageClient {
     public List<E2EEvent> getAllCurrent() {
         try {
             List<E2EEvent> results = new ArrayList<>();
-            MongoDatabase db = mongoClient.getDatabase("xrde2emonitoring");
-            MongoCollection table = db.getCollection("current_state");
-            MongoCursor<Document> cursor = table.find().sort(new Document("securityServer", 1)).iterator();
+            MongoDatabase db = mongoClient.getDatabase(Constants.DB_NAME);
+            MongoCollection table = db.getCollection(Constants.TABLE_CURRENT_STATE);
+            MongoCursor<Document> cursor = table.find().sort(new Document(Constants.COLUMN_SECURITY_SERVER, 1)).iterator();
             try {
                 while (cursor.hasNext()) {
                     results.add(this.documentToE2EEvent(cursor.next()));
@@ -91,22 +92,23 @@ public class MongoDbClient implements StorageClient {
     @Override
     public List<E2EEvent> getHistorical(String securityServer, int limit) {
         try {
-            LOGGER.info(securityServer);
+            LOGGER.info("Fetch historical data for targer \"{}\". Limit is set to {}.", securityServer, limit);
             List<E2EEvent> results = new ArrayList<>();
-            MongoDatabase db = mongoClient.getDatabase("xrde2emonitoring");
-            MongoCollection table = db.getCollection("historical_state");
+            MongoDatabase db = mongoClient.getDatabase(Constants.DB_NAME);
+            MongoCollection table = db.getCollection(Constants.TABLE_HISTORICAL_STATE);
             BasicDBObject whereQuery = new BasicDBObject();
-            whereQuery.put("securityServer", securityServer);
+            whereQuery.put(Constants.COLUMN_SECURITY_SERVER, securityServer);
             MongoCursor<Document> cursor;
             if (limit == 0) {
-                cursor = table.find(whereQuery).sort(new Document("begin", -1)).iterator();
+                cursor = table.find(whereQuery).sort(new Document(Constants.COLUMN_BEGIN, -1)).iterator();
             } else {
-                cursor = table.find(whereQuery).sort(new Document("begin", -1)).limit(limit).iterator();
+                cursor = table.find(whereQuery).sort(new Document(Constants.COLUMN_BEGIN, -1)).limit(limit).iterator();
             }
             try {
                 while (cursor.hasNext()) {
                     results.add(this.documentToE2EEvent(cursor.next()));
                 }
+                LOGGER.info("Found {} historical monitoring events.", results.size());
                 return results;
             } finally {
                 cursor.close();
@@ -124,14 +126,14 @@ public class MongoDbClient implements StorageClient {
      * @return E2EEvent object
      */
     private E2EEvent documentToE2EEvent(Document document) {
-        String producerMember = document.getString("producerMember");
-        String securityServer = document.getString("securityServer");
-        String requestId = document.getString("requestId");
-        boolean status = document.getBoolean("status");
-        String faultCode = document.getString("faultCode");
-        long duration = document.getLong("duration");
-        Date begin = document.getDate("begin");
-        Date end = document.getDate("end");
+        String producerMember = document.getString(Constants.COLUMN_PRODUCER_MEMBER);
+        String securityServer = document.getString(Constants.COLUMN_SECURITY_SERVER);
+        String requestId = document.getString(Constants.COLUMN_REQUEST_ID);
+        boolean status = document.getBoolean(Constants.COLUMN_STATUS);
+        String faultCode = document.getString(Constants.COLUMN_FAULT_CODE);
+        long duration = document.getLong(Constants.COLUMN_DURATION);
+        Date begin = document.getDate(Constants.COLUMN_BEGIN);
+        Date end = document.getDate(Constants.COLUMN_END);
         return new E2EEvent(producerMember, securityServer, requestId, status, faultCode, duration, begin, end);
     }
 }
