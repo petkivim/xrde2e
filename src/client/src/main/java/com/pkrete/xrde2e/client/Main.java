@@ -24,9 +24,9 @@
  */
 package com.pkrete.xrde2e.client;
 
-import com.pkrete.common.event.E2EEventQueueProcessor;
+import com.pkrete.xrde2e.common.event.E2EEventQueueProcessor;
 import com.pkrete.xrde2e.client.mongodb.MongoDbManager;
-import com.pkrete.common.storage.StorageManager;
+import com.pkrete.xrde2e.common.storage.StorageManager;
 import com.pkrete.xrd4j.common.member.ConsumerMember;
 import com.pkrete.xrd4j.common.message.ServiceRequest;
 import com.pkrete.xrd4j.common.util.MessageHelper;

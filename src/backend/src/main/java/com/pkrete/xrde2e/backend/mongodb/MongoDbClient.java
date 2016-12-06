@@ -21,15 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.pkrete.backend.mongodb;
+package com.pkrete.xrde2e.backend.mongodb;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import com.pkrete.common.event.E2EEvent;
-import com.pkrete.common.storage.StorageClient;
+import com.pkrete.xrde2e.common.event.E2EEvent;
+import com.pkrete.xrde2e.common.storage.StorageClient;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

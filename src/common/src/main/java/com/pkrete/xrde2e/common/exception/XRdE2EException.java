@@ -21,20 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.pkrete.common.storage;
-
-import com.pkrete.common.event.E2EEvent;
-import java.util.List;
+package com.pkrete.xrde2e.common.exception;
 
 /**
- * This interface defines operations for querying data from storage.
+ * This class extends the Exception class and it represents a generic XRdE2E
+ * exception.
  *
  * @author Petteri Kivimäki
  */
-public interface StorageClient {
+public class XRdE2EException extends Exception {
 
-    public List<E2EEvent> getAllCurrent();
-
-    public List<E2EEvent> getHistorical(String securityServer, int limit);
-
+    /**
+     * Constructs and initializes a new XRdE2EException object with the given
+     * error message.
+     *
+     * @param message error message that's shown
+     */
+    public XRdE2EException(final String message) {
+        super(message);
+    }
 }

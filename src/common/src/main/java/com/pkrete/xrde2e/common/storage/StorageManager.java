@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.pkrete.common.storage;
+package com.pkrete.xrde2e.common.storage;
 
-import com.pkrete.common.event.E2EEvent;
+import com.pkrete.xrde2e.common.event.E2EEvent;
 
 /**
  * This interface defines operations for inserting, updating and deleting data

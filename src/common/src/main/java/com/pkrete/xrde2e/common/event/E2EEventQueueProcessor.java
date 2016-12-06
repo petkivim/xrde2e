@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.pkrete.common.event;
+package com.pkrete.xrde2e.common.event;
 
-import com.pkrete.common.storage.StorageManager;
+import com.pkrete.xrde2e.common.storage.StorageManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

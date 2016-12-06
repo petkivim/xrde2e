@@ -21,23 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.pkrete.common.exception;
+package com.pkrete.xrde2e.backend;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 /**
- * This class extends the Exception class and it represents a generic XRdE2E
- * exception.
+ * Main class of the application.
  *
  * @author Petteri Kivimäki
  */
-public class XRdE2EException extends Exception {
+@SpringBootApplication
+public class Application {
 
-    /**
-     * Constructs and initializes a new XRdE2EException object with the given
-     * error message.
-     *
-     * @param message error message that's shown
-     */
-    public XRdE2EException(final String message) {
-        super(message);
+    public static void main(String[] args) { 
+        ApplicationContext ctx = SpringApplication.run(Application.class, args);
     }
+
 }

@@ -21,22 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.pkrete.backend;
+package com.pkrete.xrde2e.common.storage;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
+import com.pkrete.xrde2e.common.event.E2EEvent;
+import java.util.List;
 
 /**
- * Main class of the application.
+ * This interface defines operations for querying data from storage.
  *
  * @author Petteri Kivimäki
  */
-@SpringBootApplication
-public class Application {
+public interface StorageClient {
 
-    public static void main(String[] args) { 
-        ApplicationContext ctx = SpringApplication.run(Application.class, args);
-    }
+    public List<E2EEvent> getAllCurrent();
+
+    public List<E2EEvent> getHistorical(String securityServer, int limit);
 
 }

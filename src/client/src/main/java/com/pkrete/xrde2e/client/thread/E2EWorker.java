@@ -23,8 +23,8 @@
  */
 package com.pkrete.xrde2e.client.thread;
 
-import com.pkrete.common.event.E2EEvent;
-import com.pkrete.common.event.E2EEventQueue;
+import com.pkrete.xrde2e.common.event.E2EEvent;
+import com.pkrete.xrde2e.common.event.E2EEventQueue;
 import com.pkrete.xrd4j.client.SOAPClient;
 import com.pkrete.xrd4j.client.SOAPClientImpl;
 import com.pkrete.xrd4j.common.message.ServiceRequest;

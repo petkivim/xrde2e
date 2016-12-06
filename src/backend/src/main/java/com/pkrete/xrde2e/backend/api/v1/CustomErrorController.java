@@ -21,41 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.pkrete.backend.api.v1;
+package com.pkrete.xrde2e.backend.api.v1;
 
-import com.pkrete.common.event.E2EEvent;
-import com.pkrete.common.storage.StorageClient;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * This class implements a REST API for accessing to E2E monitoring data.
+ * Simple controller for overriding the default error white label error page.
  *
  * @author Petteri Kivimäki
  */
 @RestController
-public class APIController {
+@RequestMapping("/error")
+public class CustomErrorController implements ErrorController {
 
-    @Autowired
-    private StorageClient storageClient;
-
-    @RequestMapping("/")
-    public String index() {
-        return "";
+    @Override
+    public String getErrorPath() {
+        return "/error";
     }
 
-    @RequestMapping(method = GET, path = "/current")
-    public List<E2EEvent> allCurrent() {
-        return this.storageClient.getAllCurrent();
-    }
-
-    @RequestMapping(method = GET, value = "/historical/{securityServer:.+}")
-    public List<E2EEvent> historical(@PathVariable String securityServer, @RequestParam(value = "limit", defaultValue = "0") int limit) {
-        return this.storageClient.getHistorical(securityServer, limit);
+    @RequestMapping
+    public Map<String, String> error() {
+        Map<String, String> body = new HashMap<>();
+        body.put("message", "So sad, page not found...");
+        return body;
     }
 }
