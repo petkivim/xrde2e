@@ -8,6 +8,7 @@ table td {
 
 table td.col1 {
     width: 20%;
+    text-align: left;
 }
 
 table td.col2 {
@@ -28,6 +29,7 @@ table td.col5 {
 
 table td.col6 {
     width: 35%;
+    text-align: left;
 }
 
 table td {

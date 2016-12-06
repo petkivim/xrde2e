@@ -92,7 +92,7 @@ public class MongoDbClient implements StorageClient {
     @Override
     public List<E2EEvent> getHistorical(String securityServer, int limit) {
         try {
-            LOGGER.info("Fetch historical data for targer \"{}\". Limit is set to {}.", securityServer, limit);
+            LOGGER.info("Fetch historical data for target \"{}\". Limit is set to {}.", securityServer, limit);
             List<E2EEvent> results = new ArrayList<>();
             MongoDatabase db = mongoClient.getDatabase(Constants.DB_NAME);
             MongoCollection table = db.getCollection(Constants.TABLE_HISTORICAL_STATE);
