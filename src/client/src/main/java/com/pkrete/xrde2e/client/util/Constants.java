@@ -46,6 +46,7 @@ public class Constants {
     public static final String PROPERTIES_INTERVAL = "interval";
     public static final String PROPERTIES_CONSUMER = "consumer";
     public static final String PROPERTIES_SUBSYSTEM = "subsystem";
+    public static final String PROPERTIES_LABEL = "label";
     public static final String PROPERTIES_SERVER = "server";
     public static final String PROPERTIES_DB_HOST = "db.host";
     public static final String PROPERTIES_DB_PORT = "db.port";

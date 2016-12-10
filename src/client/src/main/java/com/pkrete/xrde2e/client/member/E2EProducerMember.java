@@ -21,30 +21,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.pkrete.xrde2e.common.util;
+package com.pkrete.xrde2e.client.member;
+
+import com.pkrete.xrd4j.common.exception.XRd4JException;
+import com.pkrete.xrd4j.common.member.ProducerMember;
 
 /**
- * This class defines all the constants used in this application.
+ * This class extends the ProducerMember class and adds a new label instance
+ * variable to it.
  *
  * @author Petteri Kivimäki
  */
-public class Constants {
+public class E2EProducerMember extends ProducerMember {
+
+    private String label;
+
+    public E2EProducerMember(String xRoadInstance, String memberClass, String memberCode, String subsystemCode, String serviceCode, String label) throws XRd4JException {
+        super(xRoadInstance, memberClass, memberCode, subsystemCode);
+        this.label = label;
+    }
 
     /**
-     * Database, table and column names
+     * Returns the label of this E2EProducerMember.
+     *
+     * @return the label this E2EProducerMember
      */
-    public static final String DB_NAME = "xrde2emonitoring";
-    public static final String TABLE_CURRENT_STATE = "current_state";
-    public static final String TABLE_HISTORICAL_STATE = "historical_state";
-    public static final String COLUMN_LABEL = "label";
-    public static final String COLUMN_PRODUCER_MEMBER = "producerMember";
-    public static final String COLUMN_SECURITY_SERVER = "securityServer";
-    public static final String COLUMN_REQUEST_ID = "requestId";
-    public static final String COLUMN_STATUS = "status";
-    public static final String COLUMN_FAULT_CODE = "faultCode";
-    public static final String COLUMN_FAULT_STRING = "faultString";
-    public static final String COLUMN_DURATION = "duration";
-    public static final String COLUMN_BEGIN = "begin";
-    public static final String COLUMN_END = "end";
-    public static final String COLUMN_CREATED_DATE = "createdDate";
+    public String getLabel() {
+        return label;
+    }
+
+    /**
+     * Sets the label of this E2EProducerMember.
+     *
+     * @param label the label to set
+     */
+    public void setLabel(String label) {
+        this.label = label;
+    }
 }

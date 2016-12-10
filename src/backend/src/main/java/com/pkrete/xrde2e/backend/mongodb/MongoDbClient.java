@@ -126,14 +126,17 @@ public class MongoDbClient implements StorageClient {
      * @return E2EEvent object
      */
     private E2EEvent documentToE2EEvent(Document document) {
+        String label = document.getString(Constants.COLUMN_LABEL);
         String producerMember = document.getString(Constants.COLUMN_PRODUCER_MEMBER);
         String securityServer = document.getString(Constants.COLUMN_SECURITY_SERVER);
         String requestId = document.getString(Constants.COLUMN_REQUEST_ID);
         boolean status = document.getBoolean(Constants.COLUMN_STATUS);
         String faultCode = document.getString(Constants.COLUMN_FAULT_CODE);
+        String faultString = document.getString(Constants.COLUMN_FAULT_STRING);
         long duration = document.getLong(Constants.COLUMN_DURATION);
         Date begin = document.getDate(Constants.COLUMN_BEGIN);
         Date end = document.getDate(Constants.COLUMN_END);
-        return new E2EEvent(producerMember, securityServer, requestId, status, faultCode, duration, begin, end);
+        Date createdDate = document.getDate(Constants.COLUMN_CREATED_DATE);
+        return new E2EEvent(label, producerMember, securityServer, requestId, status, faultCode, faultString, duration, begin, end, createdDate);
     }
 }

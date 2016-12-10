@@ -30,6 +30,7 @@ import com.pkrete.xrd4j.client.SOAPClientImpl;
 import com.pkrete.xrd4j.common.message.ServiceRequest;
 import com.pkrete.xrd4j.common.message.ServiceResponse;
 import com.pkrete.xrd4j.common.util.MessageHelper;
+import com.pkrete.xrde2e.client.member.E2EProducerMember;
 import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,12 +63,14 @@ public class E2EWorker implements Runnable {
         LOGGER.info("Thread #{} starting to monitor security server \"{}\".", this.number, request.getSecurityServer().toString());
         // Init variables for counting requests and time
         int requestCount = 0;
+        String label = ((E2EProducerMember) this.request.getProducer()).getLabel();
         // Keep on sending messages forever
         while (!Thread.currentThread().isInterrupted()) {
             // Init variables for logging
             long throughput = 0;
             boolean status = false;
             String faultCode = "";
+            String faultString = "";
             Date begin = null;
             Date end = null;
             // Get unique ID for the message
@@ -89,6 +92,7 @@ public class E2EWorker implements Runnable {
                 if (serviceResponse.hasError()) {
                     status = false;
                     faultCode = serviceResponse.getErrorMessage().getFaultCode();
+                    faultString = serviceResponse.getErrorMessage().getFaultString();
                     LOGGER.error("Thread #{} received response containing SOAP Fault for message #{}, ID : \"{}\".", this.number, requestCount, reqId);
                     LOGGER.error("Fault code : \"{}\".", serviceResponse.getErrorMessage().getFaultCode());
                 } else {
@@ -101,7 +105,7 @@ public class E2EWorker implements Runnable {
                 LOGGER.error(ex.getMessage(), ex);
             }
             // Create new E2EEvent for the storage and put it in the queue
-            E2EEventQueue.getInstance().put(new E2EEvent(request.getProducer().toString(), request.getSecurityServer().toString(), reqId, status, faultCode, throughput, begin, end));
+            E2EEventQueue.getInstance().put(new E2EEvent(label, request.getProducer().toString(), request.getSecurityServer().toString(), reqId, status, faultCode, faultString, throughput, begin, end));
             // Sleep...
             if (this.interval > 0) {
                 try {

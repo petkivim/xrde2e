@@ -125,11 +125,13 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
             MongoDatabase db = mongoClient.getDatabase(database);
             MongoCollection table = db.getCollection(collection);
             Document document = new Document();
+            document.put(Constants.COLUMN_LABEL, event.getLabel());
             document.put(Constants.COLUMN_PRODUCER_MEMBER, event.getProducerMember());
             document.put(Constants.COLUMN_SECURITY_SERVER, event.getSecurityServer());
             document.put(Constants.COLUMN_REQUEST_ID, event.getRequestId());
             document.put(Constants.COLUMN_STATUS, event.isStatus());
             document.put(Constants.COLUMN_FAULT_CODE, event.getFaultCode());
+            document.put(Constants.COLUMN_FAULT_STRING, event.getFaultString());
             document.put(Constants.COLUMN_DURATION, event.getDuration());
             document.put(Constants.COLUMN_BEGIN, event.getBegin());
             document.put(Constants.COLUMN_END, event.getEnd());
@@ -182,11 +184,13 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
             MongoDatabase db = mongoClient.getDatabase(database);
             MongoCollection table = db.getCollection(collection);
             Document document = new Document();
+            document.put(Constants.COLUMN_LABEL, event.getLabel());
             document.put(Constants.COLUMN_PRODUCER_MEMBER, event.getProducerMember());
             document.put(Constants.COLUMN_SECURITY_SERVER, event.getSecurityServer());
             document.put(Constants.COLUMN_REQUEST_ID, event.getRequestId());
             document.put(Constants.COLUMN_STATUS, event.isStatus());
             document.put(Constants.COLUMN_FAULT_CODE, event.getFaultCode());
+            document.put(Constants.COLUMN_FAULT_STRING, event.getFaultString());
             document.put(Constants.COLUMN_DURATION, event.getDuration());
             document.put(Constants.COLUMN_BEGIN, event.getBegin());
             document.put(Constants.COLUMN_END, event.getEnd());

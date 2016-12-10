@@ -34,24 +34,52 @@ import java.util.Date;
  */
 public class E2EEvent implements Serializable {
 
+    private String label;
     private String producerMember;
     private String securityServer;
     private String requestId;
     private boolean status;
     private String faultCode;
+    private String faultString;
     private long duration;
     private Date begin;
     private Date end;
+    private Date createdDate;
 
-    public E2EEvent(String producerMember, String securityServer, String requestId, boolean status, String faultCode, long duration, Date begin, Date end) {
+    public E2EEvent(String label, String producerMember, String securityServer, String requestId, boolean status, String faultCode, String faultString, long duration, Date begin, Date end) {
+        this.label = label;
         this.producerMember = producerMember;
         this.securityServer = securityServer;
         this.requestId = requestId;
         this.status = status;
         this.faultCode = faultCode;
+        this.faultString = faultString;
         this.duration = duration;
         this.begin = begin;
         this.end = end;
+    }
+
+    public E2EEvent(String label, String producerMember, String securityServer, String requestId, boolean status, String faultCode, String faultString, long duration, Date begin, Date end, Date createdDate) {
+        this(label, producerMember, securityServer, requestId, status, faultCode, faultString, duration, begin, end);
+        this.createdDate = createdDate;
+    }
+
+    /**
+     * Returns the label of this event.
+     *
+     * @return the label this event
+     */
+    public String getLabel() {
+        return label;
+    }
+
+    /**
+     * Sets the label of this event.
+     *
+     * @param label the label to set
+     */
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     /**
@@ -131,8 +159,7 @@ public class E2EEvent implements Serializable {
      * Returns the fault code returned by the service provider security server
      * if the status is not OK.
      *
-     * @return fault code returned by the service provider security
-     * server
+     * @return fault code returned by the service provider security server
      */
     public String getFaultCode() {
         return faultCode;
@@ -146,6 +173,26 @@ public class E2EEvent implements Serializable {
      */
     public void setFaultCode(String faultCode) {
         this.faultCode = faultCode;
+    }
+
+    /**
+     * Returns the fault string returned by the service provider security server
+     * if the status is not OK.
+     *
+     * @return fault string returned by the service provider security server
+     */
+    public String getFaultString() {
+        return faultString;
+    }
+
+    /**
+     * Sets the fault string returned by the service provider security server if
+     * the status is not OK.
+     *
+     * @param faultString the faultString to set
+     */
+    public void setFaultString(String faultString) {
+        this.faultString = faultString;
     }
 
     /**
@@ -200,6 +247,24 @@ public class E2EEvent implements Serializable {
      */
     public void setEnd(Date end) {
         this.end = end;
+    }
+
+    /**
+     * Returns the creation time of the event.
+     *
+     * @return the creation time of the event
+     */
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    /**
+     * Sets the creation time of the event.
+     *
+     * @param createdDate the creation time to set
+     */
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Override

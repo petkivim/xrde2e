@@ -15,7 +15,7 @@
         </layout>
     </appender>
     <logger name="com.pkrete.xrd4j.common" additivity="false">
-        <level value="WARN"/>
+        <level value="ERROR"/>
         <appender-ref ref="console"/>
     </logger>
     <logger name="com.pkrete.xrd4j.client" additivity="false">
