@@ -42,7 +42,7 @@ jQuery(document).ready(function ($) {
             },
             complete: function () {
                 // Schedule the next request when the current one's complete
-                setTimeout(worker, 5000);
+                setTimeout(worker, 60000);
             }
         });
     })();
