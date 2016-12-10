@@ -48,7 +48,7 @@ public class StorageCleaner implements Runnable {
     @Override
     public void run() {
         LOGGER.info("StorageCleaner started.");
-        while (!Thread.currentThread().isInterrupted()) {
+        while (this.deleteOlderThanInterval > 0 && !Thread.currentThread().isInterrupted()) {
             this.storageManager.deleteOlderThan(this.deleteOlderThan);
             try {
                 LOGGER.debug("StorageCleaner sleeping {} ms.", this.deleteOlderThanInterval);

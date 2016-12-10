@@ -100,8 +100,6 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
             MongoDatabase db = mongoClient.getDatabase(Constants.DB_NAME);
             MongoCollection table = db.getCollection(Constants.TABLE_HISTORICAL_STATE);
             Document document = new Document();
-            // document.put(Constants.COLUMN_CREATED_DATE, calendar.getTime());
-            // Bson query = new Document("$lt", document);
             document.put("$lt", calendar.getTime());
             Bson query = new Document(Constants.COLUMN_CREATED_DATE, document);
             DeleteResult deleteResult = table.deleteMany(query);
