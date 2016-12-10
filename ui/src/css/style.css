@@ -61,3 +61,7 @@ span.failure {
     text-align: center;
     margin-top: 2em;
 }
+.ui-widget {
+    font-size: inherit;
+    font-family: inherit;
+}
