@@ -27,9 +27,11 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
+import com.mongodb.client.result.DeleteResult;
 import com.pkrete.xrde2e.common.event.E2EEvent;
 import com.pkrete.xrde2e.common.storage.StorageManager;
 import com.pkrete.xrde2e.common.util.Constants;
+import java.util.Calendar;
 import java.util.Date;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -70,6 +72,42 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
             return false;
         }
         if (!this.update(Constants.DB_NAME, Constants.TABLE_CURRENT_STATE, event)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Deletes all the entries older than the given days from the historical
+     * state collection.
+     *
+     * @param days number of days
+     * @return true if and only if the entries were deleted successfully,
+     * otherwise false
+     */
+    @Override
+    public boolean deleteOlderThan(int days) {
+        try {
+            // Days must be negative
+            if (days > 0) {
+                days *= -1;
+            }
+            // Create a calendar object with today date.
+            Calendar calendar = Calendar.getInstance();
+            // Move calendar backwards according to the given day count
+            calendar.add(Calendar.DATE, days);
+            LOGGER.info("Delete documents older than \"{}\" from \"{}\" collection.", calendar.getTime(), Constants.TABLE_HISTORICAL_STATE);
+            MongoDatabase db = mongoClient.getDatabase(Constants.DB_NAME);
+            MongoCollection table = db.getCollection(Constants.TABLE_HISTORICAL_STATE);
+            Document document = new Document();
+            // document.put(Constants.COLUMN_CREATED_DATE, calendar.getTime());
+            // Bson query = new Document("$lt", document);
+            document.put("$lt", calendar.getTime());
+            Bson query = new Document(Constants.COLUMN_CREATED_DATE, document);
+            DeleteResult deleteResult = table.deleteMany(query);
+            LOGGER.info("Deleted {} documents from \"{}\" collection.", deleteResult.getDeletedCount(), Constants.TABLE_HISTORICAL_STATE);
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
             return false;
         }
         return true;

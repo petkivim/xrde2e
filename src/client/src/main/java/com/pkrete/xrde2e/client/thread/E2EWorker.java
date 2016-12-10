@@ -63,7 +63,7 @@ public class E2EWorker implements Runnable {
         // Init variables for counting requests and time
         int requestCount = 0;
         // Keep on sending messages forever
-        while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
             // Init variables for logging
             long throughput = 0;
             boolean status = false;
@@ -72,7 +72,7 @@ public class E2EWorker implements Runnable {
             Date end = null;
             // Get unique ID for the message
             String reqId = MessageHelper.generateId();
-            try {             
+            try {
                 // Set message ID
                 request.setId(reqId);
                 LOGGER.debug("Thread #{} sending message #{}, ID : \"{}\".", this.number, requestCount, reqId);
@@ -114,5 +114,6 @@ public class E2EWorker implements Runnable {
             // Update request counter
             requestCount++;
         }
+        LOGGER.info("Thread #{} quitting to monitor security server \"{}\".", this.number, request.getSecurityServer().toString());
     }
 }

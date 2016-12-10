@@ -34,6 +34,7 @@ import com.pkrete.xrd4j.common.util.PropertiesUtil;
 import com.pkrete.xrde2e.client.thread.E2EWorker;
 import com.pkrete.xrde2e.client.util.ApplicationHelper;
 import com.pkrete.xrde2e.client.util.Constants;
+import com.pkrete.xrde2e.common.storage.StorageCleaner;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
@@ -74,11 +75,15 @@ public class Main {
         LOGGER.debug("Setting XRdE2E properties.");
         String url = settings.getProperty(Constants.PROPERTIES_PROXY);
         int interval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_INTERVAL));
+        int deleteOlderThan = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN));
+        int deleteOlderThanInterval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN_INTERVAL));
         String dbHost = settings.getProperty(Constants.PROPERTIES_DB_HOST);
         int dbPort = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DB_PORT));
 
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_PROXY, url);
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_INTERVAL, interval);
+        LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DELETE_OLDER_THAN, deleteOlderThan);
+        LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DELETE_OLDER_THAN_INTERVAL, deleteOlderThanInterval);
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DB_HOST, dbHost);
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DB_PORT, dbPort);
 
@@ -97,6 +102,13 @@ public class Main {
         Thread eventQueueProcessorThread = new Thread(eventQueueProcessor);
         // Start event processor
         eventQueueProcessorThread.start();
+        // Initialize storage cleaner
+        StorageCleaner storateCleaner = new StorageCleaner(storageManager, deleteOlderThan, deleteOlderThanInterval);
+        // Create new thread for storage cleaner
+        Thread storateCleanerThread = new Thread(storateCleaner);
+        // Start storage cleaner
+        storateCleanerThread.start();
+
         // Create executor for monitoring threads
         ExecutorService executor = Executors.newFixedThreadPool(threadPoolSize);
         for (int i = 0; i < this.targets.size(); i++) {
