@@ -51,6 +51,18 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
     /**
      * Constructs and initializes a new MongoDbManager object.
      *
+     * @param connectionString connection string that describes the hosts to be
+     * used and options
+     */
+    public MongoDbManager(String connectionString) {
+        super.connect(connectionString);
+        // Remove all the entries from the current_state collection
+        this.deleteAll(Constants.DB_NAME, Constants.TABLE_CURRENT_STATE);
+    }
+
+    /**
+     * Constructs and initializes a new MongoDbManager object.
+     *
      * @param host database host
      * @param port database port
      */

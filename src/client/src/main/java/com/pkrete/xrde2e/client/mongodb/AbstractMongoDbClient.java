@@ -25,6 +25,7 @@ package com.pkrete.xrde2e.client.mongodb;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientURI;
 import com.mongodb.ServerAddress;
 import com.mongodb.WriteConcern;
 import com.mongodb.event.ServerHeartbeatFailedEvent;
@@ -45,6 +46,25 @@ public abstract class AbstractMongoDbClient implements ServerMonitorListener {
     protected MongoClient mongoClient;
     protected boolean serverStatus;
     protected boolean pingStarted;
+
+    /**
+     * Opens a connection using the given connection string that contains all
+     * the information and options related to the connection.
+     *
+     * @param connectionString connection string that describes the hosts to be
+     * used and options
+     * @return true if and only if the connection is opened, otherwise false
+     */
+    protected boolean connect(String connectionString) {
+        try {
+            MongoClientURI uri = new MongoClientURI(connectionString);
+            this.mongoClient = new MongoClient(uri);
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+            return false;
+        }
+        return true;
+    }
 
     /**
      * Opens a connection to the given host and port. Returns true if and only

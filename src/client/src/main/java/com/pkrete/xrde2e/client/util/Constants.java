@@ -50,6 +50,7 @@ public class Constants {
     public static final String PROPERTIES_SERVER = "server";
     public static final String PROPERTIES_DB_HOST = "db.host";
     public static final String PROPERTIES_DB_PORT = "db.port";
+    public static final String PROPERTIES_DB_CONNECTION_STRING = "db.connectionString";
     public static final String PROPERTIES_DELETE_OLDER_THAN = "deleteOlderThan";
     public static final String PROPERTIES_DELETE_OLDER_THAN_INTERVAL = "deleteOlderThanInterval";
 }

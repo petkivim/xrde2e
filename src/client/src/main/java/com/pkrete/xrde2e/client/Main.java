@@ -81,6 +81,7 @@ public class Main {
         int deleteOlderThanInterval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN_INTERVAL));
         String dbHost = settings.getProperty(Constants.PROPERTIES_DB_HOST);
         int dbPort = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DB_PORT));
+        String dbConnectionString = settings.getProperty(Constants.PROPERTIES_DB_CONNECTION_STRING);
 
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_PROXY, url);
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_INTERVAL, interval);
@@ -97,7 +98,15 @@ public class Main {
 
         LOGGER.info("Start processing.");
         // Create new storage manager
-        StorageManager storageManager = new MongoDbManager(dbHost, dbPort);
+        StorageManager storageManager;
+        // Check if connection string has been defined
+        if (dbConnectionString != null && !dbConnectionString.isEmpty()) {
+            LOGGER.debug("Use {} for database connection.", Constants.PROPERTIES_DB_CONNECTION_STRING);
+            storageManager = new MongoDbManager(dbConnectionString);
+        } else {
+            storageManager = new MongoDbManager(dbHost, dbPort);
+            LOGGER.debug("Use {} and {} for database connection.", Constants.PROPERTIES_DB_HOST, Constants.PROPERTIES_DB_PORT);
+        }
         // Initialize event queue processor
         E2EEventQueueProcessor eventQueueProcessor = new E2EEventQueueProcessor(storageManager);
         // Create new thread for event processing
