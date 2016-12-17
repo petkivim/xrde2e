@@ -80,6 +80,7 @@ public class Main {
         int interval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_INTERVAL));
         int deleteOlderThan = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN));
         int deleteOlderThanInterval = this.millisecondsToHours * MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN_INTERVAL));
+        int threadInterval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_THREAD_INTERVAL));
         String dbHost = settings.getProperty(Constants.PROPERTIES_DB_HOST);
         int dbPort = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DB_PORT));
         String dbConnectionString = settings.getProperty(Constants.PROPERTIES_DB_CONNECTION_STRING);
@@ -88,6 +89,7 @@ public class Main {
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_INTERVAL, interval);
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DELETE_OLDER_THAN, deleteOlderThan);
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DELETE_OLDER_THAN_INTERVAL, deleteOlderThanInterval);
+        LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_THREAD_INTERVAL, threadInterval);
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DB_HOST, dbHost);
         LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DB_PORT, dbPort);
 
@@ -127,10 +129,19 @@ public class Main {
             LOGGER.debug("Starting thread #{}.", i);
             Runnable worker = new E2EWorker(url, interval, this.targets.get(i));
             executor.execute(worker);
+            try {
+                // Wait a bit before starting a new thread. All the threads
+                // are sending SOAP requests to the same security server
+                // which is why a large number of threads cannot be started
+                // simultaneously.
+                LOGGER.debug("Main thread sleeping {} ms.", threadInterval);
+                Thread.sleep(threadInterval);
+            } catch (InterruptedException ex) {
+                LOGGER.error(ex.getMessage(), ex);
+            }
         }
         executor.shutdown();
         while (!executor.isTerminated()) {
         }
-
     }
 }
