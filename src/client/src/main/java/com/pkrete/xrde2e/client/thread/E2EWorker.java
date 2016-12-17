@@ -113,6 +113,7 @@ public class E2EWorker implements Runnable {
                     Thread.sleep(this.interval);
                 } catch (InterruptedException ex) {
                     LOGGER.error(ex.getMessage(), ex);
+                    Thread.currentThread().interrupt();
                 }
             }
             // Update request counter

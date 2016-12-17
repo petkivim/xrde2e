@@ -138,6 +138,7 @@ public class Main {
                 Thread.sleep(threadInterval);
             } catch (InterruptedException ex) {
                 LOGGER.error(ex.getMessage(), ex);
+                Thread.currentThread().interrupt();
             }
         }
         executor.shutdown();

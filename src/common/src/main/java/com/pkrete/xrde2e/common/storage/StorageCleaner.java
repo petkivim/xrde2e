@@ -55,6 +55,7 @@ public class StorageCleaner implements Runnable {
                 Thread.sleep(this.deleteOlderThanInterval);
             } catch (InterruptedException ex) {
                 LOGGER.error(ex.getMessage(), ex);
+                Thread.currentThread().interrupt();
             }
         }
         LOGGER.info("StorageCleaner quitted.");

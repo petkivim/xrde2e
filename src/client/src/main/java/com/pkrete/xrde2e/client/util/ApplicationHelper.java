@@ -63,7 +63,7 @@ public class ApplicationHelper {
             return jarDir;
         }
         int limit = 5;
-        if (System.getProperty("os.name").substring(0, 3).equals("Win")) {
+        if ("Win".equals(System.getProperty("os.name").substring(0, 3))) {
             limit = 6;
         }
         String temp = ApplicationHelper.class.getProtectionDomain().getCodeSource().getLocation().toString().substring(limit);
@@ -75,7 +75,7 @@ public class ApplicationHelper {
             LOGGER.info("Jar directory loaded : \"{}\".", jarDir);
             return jarDir;
         } catch (Exception ex) {
-            LOGGER.error(ex.getMessage());
+            LOGGER.error(ex.getMessage(), ex);
             return null;
         }
     }
