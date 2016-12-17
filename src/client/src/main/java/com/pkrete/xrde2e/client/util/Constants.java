@@ -39,6 +39,7 @@ public class Constants {
      * Parameter names
      */
     public static final String PROPERTIES_DIR_PARAM_NAME = "propertiesDirectory";
+    public static final String PROPERTIES_LOG4J_DIR_PARAM_NAME = "log4jConfDirectory";
     /**
      * Properties names
      */

@@ -85,15 +85,22 @@ public class ApplicationHelper {
      */
     public static void configureLog4j() {
         LOGGER.debug("Configure Log4J.");
+        // Get "log4jConfDirectory" system property
+        String log4jDirectoryParameter = System.getProperty(Constants.PROPERTIES_LOG4J_DIR_PARAM_NAME);
+        File logConfProperty = new File(log4jDirectoryParameter + Constants.LOG4J_SETTINGS_FILE);
+        // Get jar path for checking if it contains log4j.xml configuration
         String path = ApplicationHelper.getJarPath();
-        String filePath = path + Constants.LOG4J_SETTINGS_FILE;
-        File logConf = new File(filePath);
-        if (logConf.exists()) {
+        File logConf = new File(path + Constants.LOG4J_SETTINGS_FILE);
+        // Execution order system property, jar path, inside jar file
+        if (logConfProperty.exists()) {
+            DOMConfigurator.configure(logConfProperty.getAbsolutePath());
+            LOGGER.info("Logging configuration loaded from " + logConfProperty.getAbsolutePath());
+        } else if (logConf.exists()) {
             DOMConfigurator.configure(logConf.getAbsolutePath());
-            LOGGER.debug("Logging configuration loaded from " + logConf.getAbsolutePath());
+            LOGGER.info("Logging configuration loaded from " + logConf.getAbsolutePath());
         } else {
             DOMConfigurator.configure(ApplicationHelper.class.getClassLoader().getResource(Constants.LOG4J_SETTINGS_FILE));
-            LOGGER.warn("Couldn't find " + logConf.getAbsolutePath() + " configuration file. Use default configuration.");
+            LOGGER.info("Couldn't find external configuration files. Use default configuration.");
         }
         LOGGER.debug("Loaded Log4J.");
     }
