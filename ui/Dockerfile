@@ -11,8 +11,8 @@ RUN sed -i 's/^#\(LoadModule proxy_http_module\)/\1/g' /usr/local/apache2/conf/h
 # Configure reverse proxy
 RUN echo '<IfModule mod_proxy.c>' >> /usr/local/apache2/conf/httpd.conf
 RUN echo 'ProxyRequests On' >> /usr/local/apache2/conf/httpd.conf
-RUN echo 'ProxyPass /ajax/ http://xrde2e-backend:8080/' >> /usr/local/apache2/conf/httpd.conf
-RUN echo 'ProxyPassReverse /ajax/ http://xrde2e-backend:8080/' >> /usr/local/apache2/conf/httpd.conf
+RUN echo 'ProxyPass /api/v1/ http://xrde2e-backend:8080/api/v1/' >> /usr/local/apache2/conf/httpd.conf
+RUN echo 'ProxyPassReverse /api/v1/ http://xrde2e-backend:8080/api/v1/' >> /usr/local/apache2/conf/httpd.conf
 RUN echo '</IfModule>' >> /usr/local/apache2/conf/httpd.conf
 
 EXPOSE 80

@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Petteri Kivimäki
  */
 @RestController
+@RequestMapping("/api/v1")
 public class APIController {
 
     @Autowired
@@ -54,7 +55,7 @@ public class APIController {
         return this.storageClient.getAllCurrent();
     }
 
-    @RequestMapping(method = GET, value = "/historical/{securityServer:.+}")
+    @RequestMapping(method = GET, value = "/history/{securityServer:.+}")
     public List<E2EEvent> historical(@PathVariable String securityServer, @RequestParam(value = "limit", defaultValue = "0") int limit) {
         return this.storageClient.getHistorical(securityServer, limit);
     }

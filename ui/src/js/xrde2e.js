@@ -7,7 +7,7 @@ jQuery(document).ready(function ($) {
 
     (function worker() {
         $.ajax({
-            url: '/ajax/current',
+            url: '/api/v1/current',
             dataType: 'json',
             success: function (data) {
                 //console.log(data); 
@@ -51,7 +51,7 @@ jQuery(document).ready(function ($) {
 function update_dialog(server) {
     $("div#dialog").html('');
     $.ajax({
-        url: '/ajax/historical/' + server,
+        url: '/api/v1/history/' + server,
         dataType: 'json',
         success: function (data) {
             var html = '<table><tr>';
