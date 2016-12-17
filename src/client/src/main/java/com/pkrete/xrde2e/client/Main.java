@@ -53,6 +53,7 @@ public class Main {
     private Properties settings;
     private List<ServiceRequest> targets;
     private ConsumerMember consumer;
+    private final int millisecondsToHours = 3600000;
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public Main() {
@@ -78,7 +79,7 @@ public class Main {
         String url = settings.getProperty(Constants.PROPERTIES_PROXY);
         int interval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_INTERVAL));
         int deleteOlderThan = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN));
-        int deleteOlderThanInterval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN_INTERVAL));
+        int deleteOlderThanInterval = this.millisecondsToHours * MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN_INTERVAL));
         String dbHost = settings.getProperty(Constants.PROPERTIES_DB_HOST);
         int dbPort = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DB_PORT));
         String dbConnectionString = settings.getProperty(Constants.PROPERTIES_DB_CONNECTION_STRING);
