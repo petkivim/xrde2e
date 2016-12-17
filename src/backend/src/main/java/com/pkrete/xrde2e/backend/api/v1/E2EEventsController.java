@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Petteri Kivimäki
  */
 @RestController
-public class APIController {
+public class E2EEventsController {
 
     @Autowired
     private StorageClient storageClient;
