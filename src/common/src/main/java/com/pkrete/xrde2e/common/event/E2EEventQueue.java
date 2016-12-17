@@ -23,6 +23,7 @@
  */
 package com.pkrete.xrde2e.common.event;
 
+import com.pkrete.xrde2e.common.exception.XRdE2EException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import org.slf4j.Logger;
@@ -79,11 +80,9 @@ public class E2EEventQueue {
         try {
             queue.put(event);
         } catch (InterruptedException iex) {
-            Thread.currentThread().interrupt();
             LOGGER.error(iex.getMessage(), iex);
-            throw new RuntimeException("Unexpected interruption");
+            Thread.currentThread().interrupt();
         }
-
     }
 
     /**
@@ -96,9 +95,9 @@ public class E2EEventQueue {
         try {
             return queue.take();
         } catch (InterruptedException iex) {
-            Thread.currentThread().interrupt();
             LOGGER.error(iex.getMessage(), iex);
-            throw new RuntimeException("Unexpected interruption");
+            Thread.currentThread().interrupt();
+            return null;
         }
     }
 
