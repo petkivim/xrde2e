@@ -25,7 +25,6 @@ package com.pkrete.xrde2e.backend.api.v1;
 
 import com.pkrete.xrde2e.common.event.E2EEvent;
 import com.pkrete.xrde2e.common.storage.StorageClient;
-import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,13 +49,11 @@ public class APIController {
         return "";
     }
 
-    @ApiOperation(value = "Get current status of all the security servers that are monitored")
     @RequestMapping(method = GET, path = "/api/v1/current", produces = "application/json")
     public List<E2EEvent> current() {
         return this.storageClient.getAllCurrent();
     }
 
-    @ApiOperation(value = "Get status history of the specified security server")
     @RequestMapping(method = GET, value = "/api/v1/history/{securityServer:.+}", produces = "application/json")
     public List<E2EEvent> history(@PathVariable String securityServer, @RequestParam(value = "limit", defaultValue = "0") int limit) {
         return this.storageClient.getHistorical(securityServer, limit);
