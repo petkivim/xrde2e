@@ -43,9 +43,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
     @Bean
-    public Docket newsApi() {
+    public Docket eventsApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("greetings")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.pkrete.xrde2e.backend.api.v1"))
