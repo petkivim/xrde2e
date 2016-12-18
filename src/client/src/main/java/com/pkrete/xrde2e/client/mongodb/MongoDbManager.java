@@ -101,13 +101,11 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
     public boolean deleteOlderThan(int days) {
         try {
             // Days must be negative
-            if (days > 0) {
-                days *= -1;
-            }
+            int dayCount = (days > 0 ? days * -1 : days);
             // Create a calendar object with today date.
             Calendar calendar = Calendar.getInstance();
             // Move calendar backwards according to the given day count
-            calendar.add(Calendar.DATE, days);
+            calendar.add(Calendar.DATE, dayCount);
             LOGGER.info("Delete documents older than \"{}\" from \"{}\" collection.", calendar.getTime(), Constants.TABLE_HISTORICAL_STATE);
             MongoDatabase db = mongoClient.getDatabase(Constants.DB_NAME);
             MongoCollection table = db.getCollection(Constants.TABLE_HISTORICAL_STATE);
@@ -136,18 +134,7 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
         try {
             MongoDatabase db = mongoClient.getDatabase(database);
             MongoCollection table = db.getCollection(collection);
-            Document document = new Document();
-            document.put(Constants.COLUMN_LABEL, event.getLabel());
-            document.put(Constants.COLUMN_PRODUCER_MEMBER, event.getProducerMember());
-            document.put(Constants.COLUMN_SECURITY_SERVER, event.getSecurityServer());
-            document.put(Constants.COLUMN_REQUEST_ID, event.getRequestId());
-            document.put(Constants.COLUMN_STATUS, event.isStatus());
-            document.put(Constants.COLUMN_FAULT_CODE, event.getFaultCode());
-            document.put(Constants.COLUMN_FAULT_STRING, event.getFaultString());
-            document.put(Constants.COLUMN_DURATION, event.getDuration());
-            document.put(Constants.COLUMN_BEGIN, event.getBegin());
-            document.put(Constants.COLUMN_END, event.getEnd());
-            document.put(Constants.COLUMN_CREATED_DATE, new Date());
+            Document document = this.eventToDocument(event);
             table.insertOne(document);
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
@@ -195,18 +182,7 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
         try {
             MongoDatabase db = mongoClient.getDatabase(database);
             MongoCollection table = db.getCollection(collection);
-            Document document = new Document();
-            document.put(Constants.COLUMN_LABEL, event.getLabel());
-            document.put(Constants.COLUMN_PRODUCER_MEMBER, event.getProducerMember());
-            document.put(Constants.COLUMN_SECURITY_SERVER, event.getSecurityServer());
-            document.put(Constants.COLUMN_REQUEST_ID, event.getRequestId());
-            document.put(Constants.COLUMN_STATUS, event.isStatus());
-            document.put(Constants.COLUMN_FAULT_CODE, event.getFaultCode());
-            document.put(Constants.COLUMN_FAULT_STRING, event.getFaultString());
-            document.put(Constants.COLUMN_DURATION, event.getDuration());
-            document.put(Constants.COLUMN_BEGIN, event.getBegin());
-            document.put(Constants.COLUMN_END, event.getEnd());
-            document.put(Constants.COLUMN_CREATED_DATE, new Date());
+            Document document = this.eventToDocument(event);
             BasicDBObject query = new BasicDBObject();
             Bson newDocument = new Document("$set", document);
             query.append(Constants.COLUMN_SECURITY_SERVER, event.getSecurityServer());
@@ -237,5 +213,27 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
         }
         return true;
 
+    }
+
+    /**
+     * Converts the given E2EEvent to a corresponding Document
+     *
+     * @param event E2EEvent to be converted
+     * @return Document representing the given E2EEvent
+     */
+    protected Document eventToDocument(E2EEvent event) {
+        Document document = new Document();
+        document.put(Constants.COLUMN_LABEL, event.getLabel());
+        document.put(Constants.COLUMN_PRODUCER_MEMBER, event.getProducerMember());
+        document.put(Constants.COLUMN_SECURITY_SERVER, event.getSecurityServer());
+        document.put(Constants.COLUMN_REQUEST_ID, event.getRequestId());
+        document.put(Constants.COLUMN_STATUS, event.isStatus());
+        document.put(Constants.COLUMN_FAULT_CODE, event.getFaultCode());
+        document.put(Constants.COLUMN_FAULT_STRING, event.getFaultString());
+        document.put(Constants.COLUMN_DURATION, event.getDuration());
+        document.put(Constants.COLUMN_BEGIN, event.getBegin());
+        document.put(Constants.COLUMN_END, event.getEnd());
+        document.put(Constants.COLUMN_CREATED_DATE, new Date());
+        return document;
     }
 }

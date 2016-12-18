@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,10 +51,8 @@ import org.slf4j.LoggerFactory;
  */
 public class Main {
 
-    private Properties settings;
-    private List<ServiceRequest> targets;
-    private ConsumerMember consumer;
-    private final int millisecondsToHours = 3600000;
+    private static final String PROPS_LOG_PATTERN = "\"{}\" : \"{}\"";
+    private static final int MILLISECONDS_TO_HOURS = 3600000;
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public Main() {
@@ -61,41 +60,46 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        new Main().start(args);
+        new Main().start();
     }
 
-    public void start(String[] args) {
+    public void start() {
+        // Init local variables
+        Properties settings;
+        List<ServiceRequest> targets;
+        ConsumerMember consumer;
+
         LOGGER.info("Starting to initialize XRdE2E Client.");
         LOGGER.info("Reading XRdE2E properties");
         String propertiesDirectoryParameter = System.getProperty(Constants.PROPERTIES_DIR_PARAM_NAME);
         if (propertiesDirectoryParameter != null) {
-            this.settings = PropertiesUtil.getInstance().load(propertiesDirectoryParameter + Constants.PROPERTIES_FILE, false);
+            settings = PropertiesUtil.getInstance().load(propertiesDirectoryParameter + Constants.PROPERTIES_FILE, false);
             LOGGER.debug("Reading XRdE2E properties from \"{}\".", propertiesDirectoryParameter + Constants.PROPERTIES_FILE);
         } else {
-            this.settings = PropertiesUtil.getInstance().load("/" + Constants.PROPERTIES_FILE);
+            settings = PropertiesUtil.getInstance().load("/" + Constants.PROPERTIES_FILE);
             LOGGER.debug("Reading XRdE2E properties from \"{}\".", "/" + Constants.PROPERTIES_FILE);
         }
         LOGGER.debug("Setting XRdE2E properties.");
         String url = settings.getProperty(Constants.PROPERTIES_PROXY);
         int interval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_INTERVAL));
         int deleteOlderThan = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN));
-        int deleteOlderThanInterval = this.millisecondsToHours * MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN_INTERVAL));
+        int deleteOlderThanInterval = MILLISECONDS_TO_HOURS * MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN_INTERVAL));
         int threadInterval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_THREAD_INTERVAL));
         String dbHost = settings.getProperty(Constants.PROPERTIES_DB_HOST);
         int dbPort = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DB_PORT));
         String dbConnectionString = settings.getProperty(Constants.PROPERTIES_DB_CONNECTION_STRING);
 
-        LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_PROXY, url);
-        LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_INTERVAL, interval);
-        LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DELETE_OLDER_THAN, deleteOlderThan);
-        LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DELETE_OLDER_THAN_INTERVAL, deleteOlderThanInterval);
-        LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_THREAD_INTERVAL, threadInterval);
-        LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DB_HOST, dbHost);
-        LOGGER.info("\"{}\" : \"{}\"", Constants.PROPERTIES_DB_PORT, dbPort);
+        LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_PROXY, url);
+        LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_INTERVAL, interval);
+        LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_DELETE_OLDER_THAN, deleteOlderThan);
+        LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_DELETE_OLDER_THAN_INTERVAL, deleteOlderThanInterval);
+        LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_THREAD_INTERVAL, threadInterval);
+        LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_DB_HOST, dbHost);
+        LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_DB_PORT, dbPort);
 
-        this.consumer = ApplicationHelper.extractConsumer(settings.getProperty(Constants.PROPERTIES_CONSUMER));
-        this.targets = ApplicationHelper.extractTargets(settings, this.consumer);
-        int threadPoolSize = this.targets.size();
+        consumer = ApplicationHelper.extractConsumer(settings.getProperty(Constants.PROPERTIES_CONSUMER));
+        targets = ApplicationHelper.extractTargets(settings, consumer);
+        int threadPoolSize = targets.size();
         LOGGER.debug("Setting XRdE2E properties done.");
         LOGGER.info("{} monitoring targets loaded.", threadPoolSize);
 
@@ -125,9 +129,9 @@ public class Main {
 
         // Create executor for monitoring threads
         ExecutorService executor = Executors.newFixedThreadPool(threadPoolSize);
-        for (int i = 0; i < this.targets.size(); i++) {
+        for (int i = 0; i < targets.size(); i++) {
             LOGGER.debug("Starting thread #{}.", i);
-            Runnable worker = new E2EWorker(url, interval, this.targets.get(i));
+            Runnable worker = new E2EWorker(url, interval, targets.get(i));
             executor.execute(worker);
             try {
                 // Wait a bit before starting a new thread. All the threads
@@ -141,8 +145,20 @@ public class Main {
                 Thread.currentThread().interrupt();
             }
         }
+        // The shutdown() method doesn’t cause an immediate destruction 
+        // of the ExecutorService. It will make the ExecutorService stop 
+        // accepting new tasks and shut down after all running threads 
+        //  finish their current work.
         executor.shutdown();
+
         while (!executor.isTerminated()) {
+            // Wait for executor to be terminated
         }
+
+        // Interupt eventQueueProcessor and  storateCleaner
+        eventQueueProcessorThread.interrupt();
+        storateCleanerThread.interrupt();
+
+        LOGGER.info("Exit.");
     }
 }

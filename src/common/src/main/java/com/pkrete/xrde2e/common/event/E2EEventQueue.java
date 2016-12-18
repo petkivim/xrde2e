@@ -23,7 +23,6 @@
  */
 package com.pkrete.xrde2e.common.event;
 
-import com.pkrete.xrde2e.common.exception.XRdE2EException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import org.slf4j.Logger;

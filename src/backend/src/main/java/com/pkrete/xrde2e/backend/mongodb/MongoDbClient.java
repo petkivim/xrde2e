@@ -75,7 +75,7 @@ public class MongoDbClient implements StorageClient {
             }
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
-            return null;
+            return new ArrayList<>();
         }
     }
 
@@ -115,7 +115,7 @@ public class MongoDbClient implements StorageClient {
             }
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
-            return null;
+            return new ArrayList<>();
         }
     }
 
@@ -137,6 +137,19 @@ public class MongoDbClient implements StorageClient {
         Date begin = document.getDate(Constants.COLUMN_BEGIN);
         Date end = document.getDate(Constants.COLUMN_END);
         Date createdDate = document.getDate(Constants.COLUMN_CREATED_DATE);
-        return new E2EEvent(label, producerMember, securityServer, requestId, status, faultCode, faultString, duration, begin, end, createdDate);
+        E2EEvent event = new E2EEvent.E2EEventBuilder()
+                .label(label)
+                .producerMember(producerMember)
+                .securityServer(securityServer)
+                .requestId(requestId)
+                .status(status)
+                .faultCode(faultCode)
+                .faultString(faultString)
+                .duration(duration)
+                .begin(begin)
+                .end(end)
+                .createdDate(createdDate)
+                .build();
+        return event;
     }
 }

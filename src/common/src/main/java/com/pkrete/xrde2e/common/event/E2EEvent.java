@@ -46,22 +46,18 @@ public class E2EEvent implements Serializable {
     private Date end;
     private Date createdDate;
 
-    public E2EEvent(String label, String producerMember, String securityServer, String requestId, boolean status, String faultCode, String faultString, long duration, Date begin, Date end) {
-        this.label = label;
-        this.producerMember = producerMember;
-        this.securityServer = securityServer;
-        this.requestId = requestId;
-        this.status = status;
-        this.faultCode = faultCode;
-        this.faultString = faultString;
-        this.duration = duration;
-        this.begin = begin;
-        this.end = end;
-    }
-
-    public E2EEvent(String label, String producerMember, String securityServer, String requestId, boolean status, String faultCode, String faultString, long duration, Date begin, Date end, Date createdDate) {
-        this(label, producerMember, securityServer, requestId, status, faultCode, faultString, duration, begin, end);
-        this.createdDate = createdDate;
+    private E2EEvent(E2EEventBuilder builder) {
+        this.label = builder.label;
+        this.producerMember = builder.producerMember;
+        this.securityServer = builder.securityServer;
+        this.requestId = builder.requestId;
+        this.status = builder.status;
+        this.faultCode = builder.faultCode;
+        this.faultString = builder.faultString;
+        this.duration = builder.duration;
+        this.begin = builder.begin;
+        this.end = builder.end;
+        this.createdDate = builder.createdDate;
     }
 
     /**
@@ -303,5 +299,82 @@ public class E2EEvent implements Serializable {
      */
     public int hashCode() {
         return this.requestId.hashCode();
+    }
+
+    /**
+     * Static nested inner builder class for E2EEvents.
+     */
+    public static class E2EEventBuilder {
+
+        private String label;
+        private String producerMember;
+        private String securityServer;
+        private String requestId;
+        private boolean status;
+        private String faultCode;
+        private String faultString;
+        private long duration;
+        private Date begin;
+        private Date end;
+        private Date createdDate;
+
+        public E2EEventBuilder label(final String label) {
+            this.label = label;
+            return this;
+        }
+
+        public E2EEventBuilder producerMember(final String producerMember) {
+            this.producerMember = producerMember;
+            return this;
+        }
+
+        public E2EEventBuilder securityServer(final String securityServer) {
+            this.securityServer = securityServer;
+            return this;
+        }
+
+        public E2EEventBuilder requestId(final String requestId) {
+            this.requestId = requestId;
+            return this;
+        }
+
+        public E2EEventBuilder status(final boolean status) {
+            this.status = status;
+            return this;
+        }
+
+        public E2EEventBuilder faultCode(final String faultCode) {
+            this.faultCode = faultCode;
+            return this;
+        }
+
+        public E2EEventBuilder faultString(final String faultString) {
+            this.faultString = faultString;
+            return this;
+        }
+
+        public E2EEventBuilder duration(final long duration) {
+            this.duration = duration;
+            return this;
+        }
+
+        public E2EEventBuilder begin(final Date begin) {
+            this.begin = begin;
+            return this;
+        }
+
+        public E2EEventBuilder end(final Date end) {
+            this.end = end;
+            return this;
+        }
+
+        public E2EEventBuilder createdDate(final Date createdDate) {
+            this.createdDate = createdDate;
+            return this;
+        }
+
+        public E2EEvent build() {
+            return new E2EEvent(this);
+        }
     }
 }

@@ -105,7 +105,19 @@ public class E2EWorker implements Runnable {
                 LOGGER.error(ex.getMessage(), ex);
             }
             // Create new E2EEvent for the storage and put it in the queue
-            E2EEventQueue.getInstance().put(new E2EEvent(label, request.getProducer().toString(), request.getSecurityServer().toString(), reqId, status, faultCode, faultString, throughput, begin, end));
+            E2EEvent event = new E2EEvent.E2EEventBuilder()
+                    .label(label)
+                    .producerMember(request.getProducer().toString())
+                    .securityServer(request.getSecurityServer().toString())
+                    .requestId(reqId)
+                    .status(status)
+                    .faultCode(faultCode)
+                    .faultString(faultString)
+                    .duration(throughput)
+                    .begin(begin)
+                    .end(end)
+                    .build();
+            E2EEventQueue.getInstance().put(event);
             // Sleep...
             if (this.interval > 0) {
                 try {

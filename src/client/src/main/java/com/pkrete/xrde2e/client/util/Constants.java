@@ -31,6 +31,13 @@ package com.pkrete.xrde2e.client.util;
 public class Constants {
 
     /**
+     * Private constructor that hides the implicit public one.
+     */
+    private Constants() {
+        throw new IllegalAccessError("Utility class");
+    }
+
+    /**
      * Configuration file names
      */
     public static final String PROPERTIES_FILE = "xrde2e.properties";
