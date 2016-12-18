@@ -113,11 +113,4 @@
             </resource>
         </resources>
     </build>
-    <repositories>
-        <repository>
-            <id>csc-repo</id>
-            <name>CSC's Maven repository</name>
-            <url>https://maven.csc.fi/repository/internal/</url>
-        </repository>
-    </repositories>
 </project>

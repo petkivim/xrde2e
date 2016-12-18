@@ -50,6 +50,13 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
 
     /**
      * Constructs and initializes a new MongoDbManager object.
+     */
+    protected MongoDbManager() {
+
+    }
+
+    /**
+     * Constructs and initializes a new MongoDbManager object.
      *
      * @param connectionString connection string that describes the hosts to be
      * used and options

@@ -20,6 +20,7 @@
         <spring.version>1.4.2.RELEASE</spring.version>
         <xrde2e.version>0.0.1-SNAPSHOT</xrde2e.version>
         <junit.version>3.8.1</junit.version>
+        <xrd4j.version>0.0.14</xrd4j.version>
     </properties>
     <dependencies>
         <dependency>
@@ -47,7 +48,13 @@
             <groupId>com.pkrete.xrde2e</groupId>
             <artifactId>common</artifactId>
             <version>${xrde2e.version}</version>
-        </dependency>    
+        </dependency>   
+        <dependency>
+            <groupId>com.pkrete.xrd4j</groupId>
+            <artifactId>common</artifactId>
+            <version>${xrd4j.version}</version>
+            <scope>test</scope>
+        </dependency> 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

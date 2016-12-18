@@ -19,6 +19,7 @@
     <properties>
         <slf4j.version>1.7.7</slf4j.version>
         <junit.version>3.8.1</junit.version>
+        <xrd4j.version>0.0.14</xrd4j.version>
     </properties>
     <dependencies>
 
@@ -28,7 +29,12 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-        
+        <dependency>
+            <groupId>com.pkrete.xrd4j</groupId>
+            <artifactId>common</artifactId>
+            <version>${xrd4j.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

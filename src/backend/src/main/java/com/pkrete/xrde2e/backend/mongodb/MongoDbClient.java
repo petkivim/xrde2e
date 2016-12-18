@@ -125,7 +125,7 @@ public class MongoDbClient implements StorageClient {
      * @param document Document object to be converted
      * @return E2EEvent object
      */
-    private E2EEvent documentToE2EEvent(Document document) {
+    protected E2EEvent documentToE2EEvent(Document document) {
         String label = document.getString(Constants.COLUMN_LABEL);
         String producerMember = document.getString(Constants.COLUMN_PRODUCER_MEMBER);
         String securityServer = document.getString(Constants.COLUMN_SECURITY_SERVER);
