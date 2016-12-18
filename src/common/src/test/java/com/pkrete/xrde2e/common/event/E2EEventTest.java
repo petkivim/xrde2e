@@ -42,43 +42,33 @@ public class E2EEventTest extends TestCase {
      * @throws java.text.ParseException
      */
     public void testE2EEventBuilder0() throws ParseException {
-        String label = "Text label";
-        String producerMember = "FI-PILOT.GOV.1019125-0.TestService";
-        String securityServer = "FI-PILOT.COM.2229125-0.orgsecser01t";
         String requestId = MessageHelper.generateId();
-        boolean status = true;
-        String faultCode = "faultCode";
-        String faultString = "faultString";
-        long duration = 567;
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
-        Date begin = sdf.parse("18.12.2016 08:57:30.326");
-        Date end = sdf.parse("18.12.2016 08:57:30.893");
-        Date createdDate = sdf.parse("18.12.2016 08:57:30.895");
         // Create new E2EEvent
         E2EEvent event = new E2EEvent.E2EEventBuilder()
-                .label(label)
-                .producerMember(producerMember)
-                .securityServer(securityServer)
+                .label("Text label")
+                .producerMember("FI-PILOT.GOV.1019125-0.TestService")
+                .securityServer("FI-PILOT.COM.2229125-0.orgsecser01t")
                 .requestId(requestId)
-                .status(status)
-                .faultCode(faultCode)
-                .faultString(faultString)
-                .duration(duration)
-                .begin(begin)
-                .end(end)
-                .createdDate(createdDate)
+                .status(true)
+                .faultCode("faultCode")
+                .faultString("faultString")
+                .duration(567)
+                .begin(sdf.parse("18.12.2016 08:57:30.326"))
+                .end(sdf.parse("18.12.2016 08:57:30.893"))
+                .createdDate(sdf.parse("18.12.2016 08:57:30.895"))
                 .build();
         // Compare
-        assertEquals(label, event.getLabel());
-        assertEquals(producerMember, event.getProducerMember());
-        assertEquals(securityServer, event.getSecurityServer());
+        assertEquals("Text label", event.getLabel());
+        assertEquals("FI-PILOT.GOV.1019125-0.TestService", event.getProducerMember());
+        assertEquals("FI-PILOT.COM.2229125-0.orgsecser01t", event.getSecurityServer());
         assertEquals(requestId, event.getRequestId());
-        assertEquals(status, event.isStatus());
-        assertEquals(faultCode, event.getFaultCode());
-        assertEquals(faultString, event.getFaultString());
-        assertEquals(duration, event.getDuration());
-        assertEquals(begin, event.getBegin());
-        assertEquals(end, event.getEnd());
-        assertEquals(createdDate, event.getCreatedDate());
+        assertEquals(true, event.isStatus());
+        assertEquals("faultCode", event.getFaultCode());
+        assertEquals("faultString", event.getFaultString());
+        assertEquals(567, event.getDuration());
+        assertEquals(sdf.parse("18.12.2016 08:57:30.326"), event.getBegin());
+        assertEquals(sdf.parse("18.12.2016 08:57:30.893"), event.getEnd());
+        assertEquals(sdf.parse("18.12.2016 08:57:30.895"), event.getCreatedDate());
     }
 }
