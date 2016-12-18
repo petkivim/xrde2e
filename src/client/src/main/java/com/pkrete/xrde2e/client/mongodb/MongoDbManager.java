@@ -101,7 +101,7 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
     public boolean deleteOlderThan(int days) {
         try {
             // Days must be negative
-            int dayCount = (days > 0 ? days * -1 : days);
+            int dayCount = days > 0 ? days * -1 : days;
             // Create a calendar object with today date.
             Calendar calendar = Calendar.getInstance();
             // Move calendar backwards according to the given day count

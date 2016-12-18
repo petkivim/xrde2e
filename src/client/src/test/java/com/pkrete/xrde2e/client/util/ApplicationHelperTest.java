@@ -67,7 +67,7 @@ public class ApplicationHelperTest extends TestCase {
      */
     public void testExtractTarget0() {
         Properties props = new Properties();
-        props.put("0." + Constants.PROPERTIES_SUBSYSTEM, "FI-PILOT.GOV.1019125-0.Demo2Service");
+        props.put("0." + Constants.PROPERTIES_SUBSYSTEM, "FI-PILOT.GOV.1019125-0.TestService");
         props.put("0." + Constants.PROPERTIES_SERVER, "FI-PILOT.COM.2229125-0.orgsecser01t");
         props.put("0." + Constants.PROPERTIES_LABEL, "Server 01");
         ConsumerMember consumer = ApplicationHelper.extractConsumer("FI-PILOT.MUN.9879125-0.E2EClient");
@@ -78,13 +78,14 @@ public class ApplicationHelperTest extends TestCase {
         assertEquals(false, request.getProducer() == null);
         assertEquals(false, request.getSecurityServer() == null);
         // Check producer
-        assertEquals("FI-PILOT.GOV.1019125-0.Demo2Service.listMethods", request.getProducer().toString());
+        assertEquals("FI-PILOT.GOV.1019125-0.TestService.listMethods", request.getProducer().toString());
         assertEquals("FI-PILOT", request.getProducer().getXRoadInstance());
         assertEquals("GOV", request.getProducer().getMemberClass());
         assertEquals("1019125-0", request.getProducer().getMemberCode());
-        assertEquals("Demo2Service", request.getProducer().getSubsystemCode());
+        assertEquals("TestService", request.getProducer().getSubsystemCode());
         assertEquals("Server 01", ((E2EProducerMember) request.getProducer()).getLabel());
         // Check security server
+        assertEquals("FI-PILOT.COM.2229125-0.orgsecser01t", request.getSecurityServer().toString());
         assertEquals("FI-PILOT", request.getSecurityServer().getXRoadInstance());
         assertEquals("COM", request.getSecurityServer().getMemberClass());
         assertEquals("2229125-0", request.getSecurityServer().getMemberCode());
@@ -96,9 +97,9 @@ public class ApplicationHelperTest extends TestCase {
      */
     public void testExtractTarget1() {
         Properties props = new Properties();
-        props.put("0." + Constants.PROPERTIES_SUBSYSTEM, "FI-PILOT.GOV.2229125-0.Demo2Service");
-        props.put("0." + Constants.PROPERTIES_SERVER, "FI-PILOT.COM.2229125-0.orgsecser01.qa.com");
-        ConsumerMember consumer = ApplicationHelper.extractConsumer("FI-PILOT.MUN.9879125-0.E2EClient");
+        props.put("0." + Constants.PROPERTIES_SUBSYSTEM, "FI-PILOT.GOV.2229125-9.Demo2Service");
+        props.put("0." + Constants.PROPERTIES_SERVER, "FI-PILOT.COM.2229125-1.orgsecser01.qa.com");
+        ConsumerMember consumer = ApplicationHelper.extractConsumer("FI-PILOT.MUN.9879125-0.Client");
         List<ServiceRequest> targets = ApplicationHelper.extractTargets(props, consumer);
         // Compare results
         ServiceRequest request = targets.get(0);
@@ -106,16 +107,17 @@ public class ApplicationHelperTest extends TestCase {
         assertEquals(false, request.getProducer() == null);
         assertEquals(false, request.getSecurityServer() == null);
         // Check producer
-        assertEquals("FI-PILOT.GOV.2229125-0.Demo2Service.listMethods", request.getProducer().toString());
+        assertEquals("FI-PILOT.GOV.2229125-9.Demo2Service.listMethods", request.getProducer().toString());
         assertEquals("FI-PILOT", request.getProducer().getXRoadInstance());
         assertEquals("GOV", request.getProducer().getMemberClass());
-        assertEquals("2229125-0", request.getProducer().getMemberCode());
+        assertEquals("2229125-9", request.getProducer().getMemberCode());
         assertEquals("Demo2Service", request.getProducer().getSubsystemCode());
         assertEquals("", ((E2EProducerMember) request.getProducer()).getLabel());
         // Check security server
+        assertEquals("FI-PILOT.COM.2229125-1.orgsecser01.qa.com", request.getSecurityServer().toString());
         assertEquals("FI-PILOT", request.getSecurityServer().getXRoadInstance());
         assertEquals("COM", request.getSecurityServer().getMemberClass());
-        assertEquals("2229125-0", request.getSecurityServer().getMemberCode());
+        assertEquals("2229125-1", request.getSecurityServer().getMemberCode());
         assertEquals("orgsecser01.qa.com", request.getSecurityServer().getServerCode());
 
     }
@@ -125,9 +127,9 @@ public class ApplicationHelperTest extends TestCase {
      */
     public void testExtractTarget2() {
         Properties props = new Properties();
-        props.put("0." + Constants.PROPERTIES_SUBSYSTEM, "FI-PILOT.GOV.2229125-0");
-        props.put("0." + Constants.PROPERTIES_SERVER, "FI-PILOT.COM.2229125-0.orgsecser01.qa.com");
-        ConsumerMember consumer = ApplicationHelper.extractConsumer("FI-PILOT.MUN.9879125-0.E2EClient");
+        props.put("0." + Constants.PROPERTIES_SUBSYSTEM, "FI.GOV.2229125-0");
+        props.put("0." + Constants.PROPERTIES_SERVER, "FI.COM.2229125-0.orgsecser01.qa.com");
+        ConsumerMember consumer = ApplicationHelper.extractConsumer("FI.MUN.9879125-0.E2EClient");
         List<ServiceRequest> targets = ApplicationHelper.extractTargets(props, consumer);
         // Compare results
         assertEquals(true, targets.isEmpty());
@@ -138,9 +140,9 @@ public class ApplicationHelperTest extends TestCase {
      */
     public void testExtractTarget3() {
         Properties props = new Properties();
-        props.put("0." + Constants.PROPERTIES_SUBSYSTEM, "FI-PILOT.GOV.2229125-0.TestService.getData");
-        props.put("0." + Constants.PROPERTIES_SERVER, "FI-PILOT.COM.2229125-0.orgsecser01.qa.com");
-        ConsumerMember consumer = ApplicationHelper.extractConsumer("FI-PILOT.MUN.9879125-0.E2EClient");
+        props.put("0." + Constants.PROPERTIES_SUBSYSTEM, "FI-PILOT.GOV.2229125-8.TestService.getData");
+        props.put("0." + Constants.PROPERTIES_SERVER, "FI-PILOT.COM.2229125-2.orgsecser01.qa.com");
+        ConsumerMember consumer = ApplicationHelper.extractConsumer("FI-PILOT.MUN.9879125-7.E2EClient");
         List<ServiceRequest> targets = ApplicationHelper.extractTargets(props, consumer);
         // Compare results
         assertEquals(true, targets.isEmpty());
@@ -151,9 +153,9 @@ public class ApplicationHelperTest extends TestCase {
      */
     public void testExtractTarget4() {
         Properties props = new Properties();
-        props.put("0." + Constants.PROPERTIES_SUBSYSTEM, "FI-PILOT.GOV.2229125-0.TestService");
-        props.put("0." + Constants.PROPERTIES_SERVER, "FI-PILOT.COM.2229125-0");
-        ConsumerMember consumer = ApplicationHelper.extractConsumer("FI-PILOT.MUN.9879125-0.E2EClient");
+        props.put("0." + Constants.PROPERTIES_SUBSYSTEM, "FI-TEST.GOV.2229125-7.TestService");
+        props.put("0." + Constants.PROPERTIES_SERVER, "FI-TEST.COM.2229125-3");
+        ConsumerMember consumer = ApplicationHelper.extractConsumer("FI-TEST.MUN.9879125-4.E2EClient");
         List<ServiceRequest> targets = ApplicationHelper.extractTargets(props, consumer);
         // Compare results
         assertEquals(true, targets.isEmpty());

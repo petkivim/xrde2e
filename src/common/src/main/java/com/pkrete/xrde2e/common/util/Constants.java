@@ -31,13 +31,6 @@ package com.pkrete.xrde2e.common.util;
 public class Constants {
 
     /**
-     * Private constructor that hides the implicit public one.
-     */
-    private Constants() {
-        throw new IllegalAccessError("Utility class");
-    }
-    
-    /**
      * Database, table and column names
      */
     public static final String DB_NAME = "xrde2emonitoring";
@@ -54,4 +47,11 @@ public class Constants {
     public static final String COLUMN_BEGIN = "begin";
     public static final String COLUMN_END = "end";
     public static final String COLUMN_CREATED_DATE = "createdDate";
+
+    /**
+     * Private constructor that hides the implicit public one.
+     */
+    private Constants() {
+        throw new IllegalAccessError("Utility class");
+    }
 }
