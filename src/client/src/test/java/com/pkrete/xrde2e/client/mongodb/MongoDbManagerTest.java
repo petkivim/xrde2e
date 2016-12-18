@@ -28,7 +28,6 @@ import com.pkrete.xrde2e.common.event.E2EEvent;
 import com.pkrete.xrde2e.common.util.Constants;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import static junit.framework.Assert.assertEquals;
 import junit.framework.TestCase;
 import org.bson.Document;
