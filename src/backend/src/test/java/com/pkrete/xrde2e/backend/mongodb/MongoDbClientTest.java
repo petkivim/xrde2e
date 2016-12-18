@@ -46,45 +46,35 @@ public class MongoDbClientTest extends TestCase {
      */
     public void testDocumentToE2EEvent0() throws ParseException {
         // Init values
-        String label = "Text label";
-        String producerMember = "FI-PILOT.GOV.1019125-0.TestService";
-        String securityServer = "FI-PILOT.COM.2229125-0.orgsecser01t";
         String requestId = MessageHelper.generateId();
-        boolean status = true;
-        String faultCode = "faultCode";
-        String faultString = "faultString";
-        long duration = 567;
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
-        Date begin = sdf.parse("18.12.2016 08:57:30.326");
-        Date end = sdf.parse("18.12.2016 08:57:30.893");
-        Date createdDate = sdf.parse("18.12.2016 08:57:30.895");
         // Create a Document
         Document document = new Document();
-        document.put(Constants.COLUMN_LABEL, label);
-        document.put(Constants.COLUMN_PRODUCER_MEMBER, producerMember);
-        document.put(Constants.COLUMN_SECURITY_SERVER, securityServer);
+        document.put(Constants.COLUMN_LABEL, "Text label");
+        document.put(Constants.COLUMN_PRODUCER_MEMBER, "FI-PILOT.GOV.1019125-0.TestService");
+        document.put(Constants.COLUMN_SECURITY_SERVER, "FI-PILOT.COM.2229125-0.orgsecser01t");
         document.put(Constants.COLUMN_REQUEST_ID, requestId);
-        document.put(Constants.COLUMN_STATUS, status);
-        document.put(Constants.COLUMN_FAULT_CODE, faultCode);
-        document.put(Constants.COLUMN_FAULT_STRING, faultString);
-        document.put(Constants.COLUMN_DURATION, duration);
-        document.put(Constants.COLUMN_BEGIN, begin);
-        document.put(Constants.COLUMN_END, end);
-        document.put(Constants.COLUMN_CREATED_DATE, createdDate);
+        document.put(Constants.COLUMN_STATUS, true);
+        document.put(Constants.COLUMN_FAULT_CODE, "faultCode");
+        document.put(Constants.COLUMN_FAULT_STRING, "faultString");
+        document.put(Constants.COLUMN_DURATION, (long)567);
+        document.put(Constants.COLUMN_BEGIN, sdf.parse("18.12.2016 08:57:30.326"));
+        document.put(Constants.COLUMN_END, sdf.parse("18.12.2016 08:57:30.893"));
+        document.put(Constants.COLUMN_CREATED_DATE, sdf.parse("18.12.2016 08:57:30.895"));
         MongoDbClient client = new MongoDbClient();
         // Convert the Document to E2EEvent
         E2EEvent event = client.documentToE2EEvent(document);
         // Compare values
-        assertEquals(label, event.getLabel());
-        assertEquals(producerMember, event.getProducerMember());
-        assertEquals(securityServer, event.getSecurityServer());
+        assertEquals("Text label", event.getLabel());
+        assertEquals("FI-PILOT.GOV.1019125-0.TestService", event.getProducerMember());
+        assertEquals("FI-PILOT.COM.2229125-0.orgsecser01t", event.getSecurityServer());
         assertEquals(requestId, event.getRequestId());
-        assertEquals(status, event.isStatus());
-        assertEquals(faultCode, event.getFaultCode());
-        assertEquals(faultString, event.getFaultString());
-        assertEquals(duration, event.getDuration());
-        assertEquals(begin, event.getBegin());
-        assertEquals(end, event.getEnd());
-        assertEquals(createdDate, event.getCreatedDate());
+        assertEquals(true, event.isStatus());
+        assertEquals("faultCode", event.getFaultCode());
+        assertEquals("faultString", event.getFaultString());
+        assertEquals(567, event.getDuration());
+        assertEquals(sdf.parse("18.12.2016 08:57:30.326"), event.getBegin());
+        assertEquals(sdf.parse("18.12.2016 08:57:30.893"), event.getEnd());
+        assertEquals(sdf.parse("18.12.2016 08:57:30.895"), event.getCreatedDate());
     }
 }
