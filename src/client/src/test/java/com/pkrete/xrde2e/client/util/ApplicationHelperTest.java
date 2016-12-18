@@ -97,9 +97,9 @@ public class ApplicationHelperTest extends TestCase {
      */
     public void testExtractTarget1() {
         Properties props = new Properties();
-        props.put("0." + Constants.PROPERTIES_SUBSYSTEM, "FI-PILOT.GOV.2229125-9.Demo2Service");
-        props.put("0." + Constants.PROPERTIES_SERVER, "FI-PILOT.COM.2229125-1.orgsecser01.qa.com");
-        ConsumerMember consumer = ApplicationHelper.extractConsumer("FI-PILOT.MUN.9879125-0.Client");
+        props.put("0." + Constants.PROPERTIES_SUBSYSTEM, "FI-DEV.GOV.2229125-9.Demo2Service");
+        props.put("0." + Constants.PROPERTIES_SERVER, "FI-DEV.COM.2229125-1.orgsecser01.qa.com");
+        ConsumerMember consumer = ApplicationHelper.extractConsumer("FI-DEV.MUN.9879125-0.Client");
         List<ServiceRequest> targets = ApplicationHelper.extractTargets(props, consumer);
         // Compare results
         ServiceRequest request = targets.get(0);
@@ -107,15 +107,15 @@ public class ApplicationHelperTest extends TestCase {
         assertEquals(false, request.getProducer() == null);
         assertEquals(false, request.getSecurityServer() == null);
         // Check producer
-        assertEquals("FI-PILOT.GOV.2229125-9.Demo2Service.listMethods", request.getProducer().toString());
-        assertEquals("FI-PILOT", request.getProducer().getXRoadInstance());
+        assertEquals("FI-DEV.GOV.2229125-9.Demo2Service.listMethods", request.getProducer().toString());
+        assertEquals("FI-DEV", request.getProducer().getXRoadInstance());
         assertEquals("GOV", request.getProducer().getMemberClass());
         assertEquals("2229125-9", request.getProducer().getMemberCode());
         assertEquals("Demo2Service", request.getProducer().getSubsystemCode());
         assertEquals("", ((E2EProducerMember) request.getProducer()).getLabel());
         // Check security server
-        assertEquals("FI-PILOT.COM.2229125-1.orgsecser01.qa.com", request.getSecurityServer().toString());
-        assertEquals("FI-PILOT", request.getSecurityServer().getXRoadInstance());
+        assertEquals("FI-DEV.COM.2229125-1.orgsecser01.qa.com", request.getSecurityServer().toString());
+        assertEquals("FI-DEV", request.getSecurityServer().getXRoadInstance());
         assertEquals("COM", request.getSecurityServer().getMemberClass());
         assertEquals("2229125-1", request.getSecurityServer().getMemberCode());
         assertEquals("orgsecser01.qa.com", request.getSecurityServer().getServerCode());
