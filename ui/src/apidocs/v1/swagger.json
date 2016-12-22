@@ -51,8 +51,15 @@
                         "name": "securityServer",
                         "in": "path",
                         "required": true,
-                        "description": "The security server's server identifier.",
+                        "description": "Security server's server identifier.",
                         "type": "string"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "description": "Number of events to be returned.",
+                        "type": "integer"
                     }
                 ],
                 "responses": {
