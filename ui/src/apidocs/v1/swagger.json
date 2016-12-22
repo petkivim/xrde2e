@@ -1,0 +1,144 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "X-Road E2E API",
+        "description": "This API provides E2E monitoring data from X-Road security servers. The data is collected using `listMethods` meta service. If the service sends a valid response, it means that `xroad-proxy` and `xroad-signer` components are working fine."
+    },
+    "host": "localhost",
+    "basePath": "/api/v1",
+    "tags": [
+        {
+            "name": "Current",
+            "description": "Current state of all monitoring targets."
+        },
+        {
+            "name": "History",
+            "description": "Current and past states of defined monitoring target."
+        }
+    ],
+    "paths": {
+        "/current": {
+            "get": {
+                "tags": [
+                    "Current"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "description": "Gets `E2EEvent` objects representing the current state of all the security servers that are monitored.\n",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/E2EEvents"
+                        }
+                    }
+                }
+            }
+        },
+        "/history/{securityServer}": {
+            "get": {
+                "tags": [
+                    "History"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "description": "Gets `E2EEvent` objects representing current and past states of the defined security server.\nThe security server is defined using `securityServer` as identifier.\n",
+                "parameters": [
+                    {
+                        "name": "securityServer",
+                        "in": "path",
+                        "required": true,
+                        "description": "The security server's server identifier.",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/E2EEvents"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "E2EEvent": {
+            "title": "E2EEvent",
+            "required": [
+                "label",
+                "producerMember",
+                "securityServer",
+                "requestId",
+                "status",
+                "duration",
+                "begin",
+                "end",
+                "createdDate"
+            ],
+            "properties": {
+                "label": {
+                    "description": "Human readable screen name of the security server.",
+                    "type": "string"
+                },
+                "producerMember": {
+                    "description": "The service that's used for monitoring (instanceIdentifier.memberClass.memberCode.listMethods).",
+                    "type": "string"
+                },
+                "securityServer": {
+                    "description": "Security server that's being monitored (instanceIdentifier.memberClass.memberCode.serverCode).",
+                    "type": "string"
+                },
+                "requestId": {
+                    "description": "Unique ID of the monitoring request.",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Status of the security server. The value is true if and only if the server is OK. Otherwise the value is false.",
+                    "type": "boolean"
+                },
+                "faultCode": {
+                    "description": "If status is false, the fault code that was returned by the security server.",
+                    "type": "string"
+                },
+                "faultString": {
+                    "description": "If status is false, the fault string that was returned by the security server.",
+                    "type": "string"
+                },
+                "duration": {
+                    "description": "Duration of the request in milliseconds.",
+                    "type": "integer"
+                },
+                "begin": {
+                    "description": "When the request wast sent. Format dd.MM.yyyy HH:mm:ss.SSS.",
+                    "type": "string",
+                    "format": "date",
+                    "pattern": "dd.MM.yyyy HH:mm:ss.SSS"
+                },
+                "end": {
+                    "description": "When the response wast received. Format dd.MM.yyyy HH:mm:ss.SSS.",
+                    "type": "string",
+                    "format": "date",
+                    "pattern": "dd.MM.yyyy HH:mm:ss.SSS"
+                },
+                "createdDate": {
+                    "description": "When the E2EEvent was stored in the database. Format dd.MM.yyyy HH:mm:ss.SSS.",
+                    "type": "string",
+                    "format": "date",
+                    "pattern": "dd.MM.yyyy HH:mm:ss.SSS"
+                }
+            }
+        },
+        "E2EEvents": {
+            "title": "ArrayOfE2EEvents",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/E2EEvent"
+            }
+        }
+    }
+}
