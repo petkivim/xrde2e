@@ -103,6 +103,12 @@ public class Main {
         LOGGER.debug("Setting XRdE2E properties done.");
         LOGGER.info("{} monitoring targets loaded.", threadPoolSize);
 
+        // If no targets were loaded there's nothing to do
+        if (threadPoolSize == 0) {
+            LOGGER.info("No monitoring targets loaded. Nothing to do here. Exit.");
+            return;
+        }
+
         LOGGER.info("Start processing.");
         // Create new storage manager
         StorageManager storageManager;
