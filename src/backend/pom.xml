@@ -20,7 +20,7 @@
         <spring.version>1.4.2.RELEASE</spring.version>
         <xrde2e.version>0.0.1</xrde2e.version>
         <junit.version>3.8.1</junit.version>
-        <xrd4j.version>0.0.14</xrd4j.version>
+        <xrd4j.version>0.0.16</xrd4j.version>
     </properties>
     <dependencies>
         <dependency>
