@@ -163,6 +163,7 @@ public class Main {
             }
         } catch (InterruptedException ex) {
             LOGGER.error(ex.getMessage(), ex);
+            Thread.currentThread().interrupt();
         }
 
         // Interupt eventQueueProcessor and storateCleaner
@@ -174,6 +175,7 @@ public class Main {
             eventQueueProcessorThread.join();
         } catch (InterruptedException ex) {
             LOGGER.error(ex.getMessage(), ex);
+            Thread.currentThread().interrupt();
         }
         LOGGER.info("Exit.");
     }
