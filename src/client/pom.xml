@@ -19,7 +19,7 @@
     <properties>
         <slf4j.version>1.7.7</slf4j.version>
         <log4j.version>1.2.16</log4j.version>
-        <xrd4j.version>0.0.14</xrd4j.version>
+        <xrd4j.version>0.0.16</xrd4j.version>
         <xrde2e.version>0.0.1-SNAPSHOT</xrde2e.version>
         <junit.version>3.8.1</junit.version>
     </properties>
