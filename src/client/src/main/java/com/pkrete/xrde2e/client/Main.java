@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -147,17 +148,33 @@ public class Main {
         // The shutdown() method doesn’t cause an immediate destruction 
         // of the ExecutorService. It will make the ExecutorService stop 
         // accepting new tasks and shut down after all running threads 
-        //  finish their current work.
+        // finish their current work.
         executor.shutdown();
 
-        while (!executor.isTerminated()) {
-            // Wait for executor to be terminated
+        try {
+            // Blocks until all tasks have completed execution after a shutdown 
+            // request, or the timeout occurs, or the current thread is 
+            // interrupted, whichever happens first. Returns true if this 
+            // executor is terminated and false if the timeout elapsed 
+            // before termination.
+            while (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
+                // Wait for executor to be terminated
+                LOGGER.trace("Waiting for ExecutorService to be terminated.");
+            }
+        } catch (InterruptedException ex) {
+            LOGGER.error(ex.getMessage(), ex);
         }
 
-        // Interupt eventQueueProcessor and  storateCleaner
+        // Interupt eventQueueProcessor and storateCleaner
         eventQueueProcessorThread.interrupt();
         storateCleanerThread.interrupt();
 
+        try {
+            storateCleanerThread.join();
+            eventQueueProcessorThread.join();
+        } catch (InterruptedException ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
         LOGGER.info("Exit.");
     }
 }
