@@ -102,6 +102,7 @@
                 </executions>
                 <configuration>
                     <finalName>${project.artifactId}-${project.version}</finalName>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
                 </configuration>
             </plugin>
         </plugins>
