@@ -101,7 +101,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <finalName>bundled-${project.artifactId}-${project.version}</finalName>
+                    <finalName>${project.artifactId}-${project.version}</finalName>
                 </configuration>
             </plugin>
         </plugins>

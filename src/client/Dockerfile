@@ -2,7 +2,7 @@
 FROM java:8
 
 # Add Backend jar to container
-ADD target/bundled-client-*.jar client.jar
+ADD target/client-*.jar client.jar
 
 # Entry with exec
 ENTRYPOINT exec java $JAVA_OPTS -jar /client.jar
