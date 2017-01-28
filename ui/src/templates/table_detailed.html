@@ -1,0 +1,25 @@
+<div class="title">{{serverIdentifier}}</div>
+<table class="history">
+    <tr>
+        <th class="col1">Duration</th>
+        <th class="col2">Created</th>
+        <th class="col3">Request Id</th>
+        <th class="col4">Status</th>
+        <th class="col5">Info</th>
+    </tr>
+    <tr data-ng-repeat = "target in targets">
+        <td>
+            <span data-tooltip="Sent: {{ target.begin}} Received: {{ target.end}}" data-tooltip-position="right">
+                {{target.duration}} ms
+            </span>
+        </td>
+        <td class="col2">{{target.createdDate}}</td>
+        <td class="col3">{{target.requestId}}</td>
+        <td class="col4">
+            <span class="label {{target.status ? 'success' : 'failure' }}">
+                {{target.status ? 'OK' : 'NOK'}}
+            </span>
+        </td>
+        <td class="col5">{{ target.faultCode}}<br />{{ target.faultString}}</td>
+    </tr>
+</table>

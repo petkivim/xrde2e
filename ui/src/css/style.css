@@ -1,34 +1,74 @@
 table {
-    width: 80%;
+    width: 90%;
+    font-size: 1em;
+    margin-top: 1em;
 }
 
-table td {
+table td, table th {
     text-align: center;
 }
 
-table td.col1 {
-    width: 20%;
+table.current td.col1 {
+    width: 30%;
     text-align: left;
+    padding-left: .5em;
 }
 
-table td.col2 {
+table.current td.col2 {
     width: 5%;
 }
 
-table td.col3 {
+table.current td.col3 {
     width: 15%;
 }
 
-table td.col4 {
-    width: 20%;
-}
-
-table td.col5 {
+table.current td.col5 {
     width: 5%;
 }
 
-table td.col6 {
-    width: 35%;
+table.current td.col5 {
+    width: 45%;
+    text-align: left;
+}
+
+table.current th.col1 {
+    width: 30%;
+}
+
+table.current th.col2 {
+    width: 5%;
+}
+
+table.current th.col3 {
+    width: 15%;
+}
+
+table.current th.col5 {
+    width: 5%;
+}
+
+table.current th.col5 {
+    width: 45%;
+}
+
+table.history td.col1 {
+    width: 10%;
+}
+
+table.history td.col2 {
+    width: 15%;
+}
+
+table.history td.col3 {
+    width: 25%;
+}
+
+table.history td.col4 {
+    width: 5%;
+}
+
+table.history td.col5 {
+    width: 40%;
     text-align: left;
 }
 
@@ -55,13 +95,30 @@ span.failure {
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: .25em;
+    width: 25em;
 }
 
 #updated {
     text-align: center;
     margin-top: 2em;
 }
-.ui-widget {
-    font-size: inherit;
-    font-family: inherit;
+.modal-dialog {
+    width: 80%;
+    overflow-y: auto; 
+    max-height: 500px;
+}
+
+div.title{
+    margin-top: 1em;
+    margin-left: 1em;
+    font-weight: bold;
+}
+
+div.container {
+    width: 100%;
+}
+
+div.form-group {
+    width: 90%;
+    margin-top: .5em;
 }

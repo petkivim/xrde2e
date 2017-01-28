@@ -1,0 +1,37 @@
+<form>
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+            <input type="text" class="form-control" placeholder="Search" data-ng-model="search">
+        </div>      
+    </div>
+</form>
+
+<table class="current">
+    <tr>
+        <th class="col1">Server</th>
+        <th class="col2">Duration</th>
+        <th class="col3">Created</th>
+        <th class="col4">Status</th>
+        <th class="col5">Info</th>
+    </tr>
+    <tr data-ng-repeat = "target in targets| orderBy:'label' | filter:search">
+        <td class="col1" data-ng-click="showModal(target.securityServer)">
+            <span data-tooltip="{{target.securityServer}}" data-tooltip-position="right">
+                {{target.label.length > 0 ? target.label : target.securityServer }}
+            </span>
+        </td>
+        <td class="col2">
+            <span data-tooltip="Sent: {{ target.begin}} Received: {{ target.end}}" data-tooltip-position="left">
+                {{target.duration}} ms
+            </span>
+        </td>
+        <td class="col3">{{target.createdDate}}</td>
+        <td class="col4">
+            <span class="label {{target.status ? 'success' : 'failure' }}">
+                {{target.status ? 'OK' : 'NOK'}}
+            </span>
+        </td>
+        <td class="col5">{{ target.faultCode}}<br />{{ target.faultString}}</td>
+    </tr>
+</table>
