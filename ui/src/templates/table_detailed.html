@@ -1,4 +1,13 @@
-<div class="title">{{serverIdentifier}}</div>
+<div class="modal-header">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="title" data-ng-click="ok()">{{serverIdentifier}}</div>
+        </div>
+        <div class="col-md-4 text-right">
+            <button type="button" class="btn btn-link notes-cancel-btn" data-dismiss="modal" data-ng-click="ok();">Close</button>
+        </div>
+    </div>
+</div>
 <table class="history">
     <tr>
         <th class="col1">Duration</th>

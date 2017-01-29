@@ -1,3 +1,7 @@
+body {
+    background: #f9f9f9;
+}
+
 table {
     width: 90%;
     font-size: 1em;
@@ -11,7 +15,7 @@ table td, table th {
 table.current td.col1 {
     width: 30%;
     text-align: left;
-    padding-left: .5em;
+    padding-left: .7em;
 }
 
 table.current td.col2 {
@@ -116,9 +120,17 @@ div.title{
 
 div.container {
     width: 100%;
+    padding: 0;
+    margin: 0;
 }
 
 div.form-group {
     width: 90%;
-    margin-top: .5em;
+    padding-top: .5em;
+}
+
+div.header {
+    width:100%;
+    background: #f2f2f2;
+    border-bottom: 4px solid #d9d9d9;
 }
