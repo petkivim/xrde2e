@@ -37,11 +37,13 @@ public class StorageCleaner implements Runnable {
     private final StorageManager storageManager;
     private final int deleteOlderThan;
     private final int deleteOlderThanInterval;
+    private final int deleteOlderThanFromCurrent;
 
-    public StorageCleaner(StorageManager storageManager, int deleteOlderThan, int deleteOlderThanInterval) {
+    public StorageCleaner(StorageManager storageManager, int deleteOlderThan, int deleteOlderThanInterval, int deleteOlderThanFromCurrent) {
         this.storageManager = storageManager;
         this.deleteOlderThan = deleteOlderThan;
         this.deleteOlderThanInterval = deleteOlderThanInterval;
+        this.deleteOlderThanFromCurrent = deleteOlderThanFromCurrent;
         LOGGER.info("StorageCleaner initiated.");
     }
 
@@ -49,7 +51,10 @@ public class StorageCleaner implements Runnable {
     public void run() {
         LOGGER.info("StorageCleaner started.");
         while (this.deleteOlderThanInterval > 0 && !Thread.currentThread().isInterrupted()) {
+            // Cleant history collection
             this.storageManager.deleteOlderThan(this.deleteOlderThan);
+            // Clean current collection
+            this.storageManager.deleteOlderThanFromCurrent(this.deleteOlderThanFromCurrent);
             try {
                 LOGGER.debug("StorageCleaner sleeping {} ms.", this.deleteOlderThanInterval);
                 Thread.sleep(this.deleteOlderThanInterval);

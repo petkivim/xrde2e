@@ -36,5 +36,7 @@ public interface StorageManager {
     public boolean add(E2EEvent event);
 
     public boolean deleteOlderThan(int days);
+    
+    public boolean deleteOlderThanFromCurrent(int hours);
 
 }

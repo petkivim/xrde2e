@@ -63,8 +63,6 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
      */
     public MongoDbManager(String connectionString) {
         super.connect(connectionString);
-        // Remove all the entries from the current_state collection
-        this.deleteAll(Constants.DB_NAME, Constants.TABLE_CURRENT_STATE);
     }
 
     /**
@@ -75,8 +73,6 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
      */
     public MongoDbManager(String host, int port) {
         super.connect(host, port);
-        // Remove all the entries from the current_state collection
-        this.deleteAll(Constants.DB_NAME, Constants.TABLE_CURRENT_STATE);
     }
 
     @Override
@@ -113,7 +109,7 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
             Calendar calendar = Calendar.getInstance();
             // Move calendar backwards according to the given day count
             calendar.add(Calendar.DATE, dayCount);
-            LOGGER.info("Delete documents older than \"{}\" from \"{}\" collection.", calendar.getTime(), Constants.TABLE_HISTORICAL_STATE);
+            LOGGER.info("Delete documents older than \"{}\" days from \"{}\" collection.", calendar.getTime(), Constants.TABLE_HISTORICAL_STATE);
             MongoDatabase db = mongoClient.getDatabase(Constants.DB_NAME);
             MongoCollection table = db.getCollection(Constants.TABLE_HISTORICAL_STATE);
             Document document = new Document();
@@ -121,6 +117,38 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
             Bson query = new Document(Constants.COLUMN_CREATED_DATE, document);
             DeleteResult deleteResult = table.deleteMany(query);
             LOGGER.info("Deleted {} documents from \"{}\" collection.", deleteResult.getDeletedCount(), Constants.TABLE_HISTORICAL_STATE);
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Deletes all the entries older than the given hours from the current state
+     * collection.
+     *
+     * @param hours number of hours
+     * @return true if and only if the entries were deleted successfully,
+     * otherwise false
+     */
+    @Override
+    public boolean deleteOlderThanFromCurrent(int hours) {
+        try {
+            // Hours must be negative
+            int hourCount = hours > 0 ? hours * -1 : hours;
+            // Create a calendar object with today date.
+            Calendar calendar = Calendar.getInstance();
+            // Move calendar backwards according to the given hour count
+            calendar.add(Calendar.HOUR_OF_DAY, hourCount);
+            LOGGER.info("Delete documents older than \"{}\" hours from \"{}\" collection.", calendar.getTime(), Constants.TABLE_CURRENT_STATE);
+            MongoDatabase db = mongoClient.getDatabase(Constants.DB_NAME);
+            MongoCollection table = db.getCollection(Constants.TABLE_CURRENT_STATE);
+            Document document = new Document();
+            document.put("$lt", calendar.getTime());
+            Bson query = new Document(Constants.COLUMN_CREATED_DATE, document);
+            DeleteResult deleteResult = table.deleteMany(query);
+            LOGGER.info("Deleted {} documents from \"{}\" collection.", deleteResult.getDeletedCount(), Constants.TABLE_CURRENT_STATE);
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
             return false;

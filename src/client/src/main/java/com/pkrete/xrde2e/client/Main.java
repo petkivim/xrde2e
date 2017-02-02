@@ -83,6 +83,7 @@ public class Main {
         String url = settings.getProperty(Constants.PROPERTIES_PROXY);
         int interval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_INTERVAL));
         int deleteOlderThan = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN));
+        int deleteOlderThanFromCurrent = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN_CURRENT));
         int deleteOlderThanInterval = MILLISECONDS_TO_HOURS * MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN_INTERVAL));
         int threadInterval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_THREAD_INTERVAL));
         String dbHost = settings.getProperty(Constants.PROPERTIES_DB_HOST);
@@ -92,6 +93,7 @@ public class Main {
         LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_PROXY, url);
         LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_INTERVAL, interval);
         LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_DELETE_OLDER_THAN, deleteOlderThan);
+        LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_DELETE_OLDER_THAN_CURRENT, deleteOlderThanFromCurrent);
         LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_DELETE_OLDER_THAN_INTERVAL, deleteOlderThanInterval);
         LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_THREAD_INTERVAL, threadInterval);
         LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_DB_HOST, dbHost);
@@ -127,7 +129,7 @@ public class Main {
         // Start event processor
         eventQueueProcessorThread.start();
         // Initialize storage cleaner
-        StorageCleaner storateCleaner = new StorageCleaner(storageManager, deleteOlderThan, deleteOlderThanInterval);
+        StorageCleaner storateCleaner = new StorageCleaner(storageManager, deleteOlderThan, deleteOlderThanInterval, deleteOlderThanFromCurrent);
         // Create new thread for storage cleaner
         Thread storateCleanerThread = new Thread(storateCleaner);
         // Start storage cleaner
