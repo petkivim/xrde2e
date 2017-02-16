@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.pkrete</groupId>
         <artifactId>xrde2e</artifactId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>0.0.2</version>
     </parent>   
     <groupId>com.pkrete.xrde2e</groupId>
     <artifactId>backend</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
     <name>XRdE2E :: Backend</name>
     <description>
@@ -18,7 +18,7 @@
     <url>https://github.com/petkivim/xrde2e</url>
     <properties>
         <spring.version>1.4.2.RELEASE</spring.version>
-        <xrde2e.version>0.0.2-SNAPSHOT</xrde2e.version>
+        <xrde2e.version>0.0.2</xrde2e.version>
         <junit.version>3.8.1</junit.version>
         <xrd4j.version>0.0.16</xrd4j.version>
     </properties>
