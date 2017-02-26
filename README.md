@@ -65,6 +65,11 @@ consumer=FI-TEST.GOV.0245437-2.MyTestClient
 1.subsystem=FI-TEST.GOV.0245437-2.TestService
 1.server=FI-TEST.GOV.0245437-2.myserver02
 1.label=My server 2
+.
+.
+50.subsystem=FI-TEST.COM.5545756-1.InfoService
+50.server=FI-TEST.COM.5545756-1.server01
+50.label=Info server
 ```
 
 ### Run
