@@ -5,7 +5,7 @@ XRdE2E is an end-to-end monitoring tool for X-Road security servers. Monitoring 
 XRdE2E includes four components:
 
 * UI - A simple web page for accessing and searching the monitoring data.
-* Backend - REST API that provides access to the monitoring data collected from security servers.
+* Backend - REST API that provides access to the monitoring data collected from security servers. THE API is accessible at ```http://{HOST}/apidocs/v1/```.
 * Database - MongoDB database for storing the monitoring data.
 * Client - Monitoring client that collects data from security servers. The client calls the monitored security servers through a client security server as it's not able to call the targets directly.
 
