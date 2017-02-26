@@ -127,3 +127,21 @@ Especially in a production environment it's a good idea to use mutual SSL authen
     environment:
       - JAVA_OPTS=-DpropertiesDirectory=/my/conf/ -Djavax.net.ssl.trustStore=/my/conf/xrde2eTestTrustStore.jks -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.ssl.keyStore=/my/conf/xrde2eTestKeyStore.jks -Djavax.net.ssl.keyStorePassword=changeit
  ```
+
+Import the internal certificate of the security server to the truststore of the client.
+
+```
+keytool -import -file cert.crt -alias secserver -keystore xrde2eProdTrustStore.jks
+```
+
+Create a new keystore file and a keypair for the client.
+
+```
+keytool -genkey -keyalg RSA -alias client -keystore xrde2eProdKeyStore.jks -storepass changeit -validity 720 -keysize 2048
+```
+
+Export the certificate from the keystore and add it to the security server under the same subsystem defined by the ```consumer``` property.
+
+```
+keytool -export -alias selfsigned -keystore xrde2eProdKeyStore.jks -rfc -file xrde2e_X509_certificate.cer
+```
