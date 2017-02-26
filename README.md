@@ -69,6 +69,8 @@ consumer=FI-TEST.GOV.0245437-2.MyTestClient
 
 ### Run
 
+After updating the configuration it's time to start the system using Docker Compose.
+
 ```
 docker-compose up -d
 ```
