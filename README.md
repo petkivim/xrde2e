@@ -15,6 +15,12 @@ The diagram below shows how the basic deployment of the system.
 
 ![xrde2e-deployment-single](https://github.com/petkivim/xrde2e/blob/master/images/xrde2e-deployment-single.png)
 
+The basic deployment has one major limitation - it's possible to monitor security servers that are all registered in the same X-Road instance. Usually a X-Road member organization has security servers in at least two different instances: test and production. Instead of deploying two different monitoring systems, one for test environment and another for production environment, it's better to deploy one monitoring system with multiple clients.
+
+Each client can call only one client security server and each security server can be registered in only one environments at the time. Therefore we need one client and one client security server per environment. However, different clients can share the same database which makes it possible for the user to access monitoring data collected from different environments through the same UI. The diagram below gives an example of this kind of deployment.
+
+![xrde2e-deployment-multi](https://github.com/petkivim/xrde2e/blob/master/images/xrde2e-deployment-multi.png)
+
 ### Build
 
 ```
