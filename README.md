@@ -145,3 +145,58 @@ Export the certificate from the keystore and add it to the security server under
 ```
 keytool -export -alias selfsigned -keystore xrde2eKeyStore.jks -rfc -file xrde2e_X509_certificate.cer
 ```
+
+### MongoDB And Authentication
+
+by default MongoDB does not require authentication as it is started with ```--noauth``` option.
+
+When the system is up and running jump into to the MongoDB container.
+```
+docker exec -i -t xrde2e_db_1 bash
+```
+
+First, create admin user. Replace ```{ADMIN_PWD}``` with your own password.
+
+```
+mongo admin --eval "db.createUser({ user: 'admin', pwd: '{ADMIN_PWD}', roles: [ { role: 'userAdminAnyDatabase', db: 'admin' } ] });"
+```
+
+Then, create a new user for the client(s). Replace ```{ADMIN_PWD}``` with the admin password and ```{XRDE2E_CLIENT_PWD}``` with the password that you want to set for the client(s).
+
+```
+mongo -u "admin" -p "{ADMIN_PWD}" --authenticationDatabase "admin" xrde2emonitoring --eval "db.createUser({ user: 'xrde2e-client', pwd: '{XRDE2E_CLIENT_PWD}', roles: [ { role: 'readWrite', db: 'xrde2emonitoring' } ] });"
+```
+
+At last, create a new user for the backend. Replace ```{ADMIN_PWD}``` with the admin password and ```{XRDE2E_BACKEND_PWD}``` with the password that you want to set for the backend.
+
+```
+mongo -u "admin" -p "{ADMIN_PWD}" --authenticationDatabase "admin" xrde2emonitoring --eval "db.createUser({ user: 'xrde2e-backend', pwd: '{XRDE2E_BACKEND_PWD}', roles: [ { role: 'read', db: 'xrde2emonitoring' } ] });"
+```
+
+Backend password must be updated to ```docker-compose.yml``` file. In addition, MongoDB's authentication must be switched on.
+
+```
+  xrde2e-backend:
+    image: xrde2e-backend:latest
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      - JAVA_OPTS=-Dspring.data.mongodb.host=db -Dspring.data.mongodb.username=xrde2e-backend -Dspring.data.mongodb.password={XRDE2E_BACKEND_PWD} -Dspring.data.mongodb.database=xrde2emonitoring
+  db:
+    image: mongo:3.4.0
+    command: mongod --dbpath=/data/db --auth
+    ports:
+      - "27017:27017"
+    volumes:
+      - /var/mongodb:/data/db:Z
+```
+
+Also client's ```db.connectionString``` property in the ```xrde2e.properties``` file must be updated.
+
+```
+db.connectionString=mongodb://xrde2e-client:{XRDE2E_CLIENT_PWD}@db:27017/xrde2emonitoring?safe=true
+```
+
+Restart the system for configuration changes to take effect.
