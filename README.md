@@ -27,6 +27,46 @@ Each client can call only one client security server and each security server ca
 ./build_docker_images.sh
 ```
 
+### Configuration
+
+The default configuration expects that client properties can be found from ```/var/xrde2e-client/xrde2e.properties``` file. MongoDB's data directory is ```/var/mongodb```. It's possible to change these locations modifying [docker-compose.yml](https://github.com/petkivim/xrde2e/blob/master/docker-compose.yml) file.
+
+The contents  of the ```/var/xrde2e-client/xrde2e.properties``` file can be seen below. At least ```proxy``` and ```consumer``` properties must be updated.  ```proxy``` property defines the access point to the client security server that's used for calling the target security servers. ```consumer``` is the subsystem that's user for calling the ```listMethods``` meta service of the targets. In addition, the target security servers must be defined using ```x.subsyste```, ```x.server``` and ```x.label``` properties. **NB** It is very important to replace the ```x``` prefix with the number of the target. Numbering starts from zero and no numbers must not be skipped. Jumping over a number causes that all the targets defined after the missing number are skipped.
+
+```
+# Connection string that describes the host to be used and options.
+# When connectionString is null or empty host and port are used.
+# E.g. with username and password:
+# mongodb://user:password@localhost:27017/xrde2emonitoring?safe=true
+db.connectionString=mongodb://localhost:27017/xrde2emonitoring?safe=true
+# Security server URL/IP
+proxy=http://x.x.x.x/
+# Request interval in milliseconds
+interval=5000
+# Interval between starting a new E2E monitoring thread when the program
+# starts. Defined in milliseconds.
+threadInterval=300
+# Delete entries older than X days from historical status
+deleteOlderThan=1
+# Delete entries older than X hours from current status
+deleteOlderThanFromCurrent=12
+# Run removal of old entries every X hours.
+# If value is set to 0 (zero), the removal of old entries is skipped.
+deleteOlderThanInterval=1
+# Consumer identifier
+consumer=FI-TEST.GOV.0245437-2.MyTestClient
+# List of targets in format: 
+# x.subsystem=instanceIdentifier.memberClass.memberCode.subsystemCode
+# x.server=instanceIdentifier.memberClass.memberCode.serverCode
+# x.label=Human readable name for the target
+0.subsystem=FI-TEST.GOV.0245437-2.TestService
+0.server=FI-TEST.GOV.0245437-2.myserver01
+0.label=My server 1
+1.subsystem=FI-TEST.GOV.0245437-2.TestService
+1.server=FI-TEST.GOV.0245437-2.myserver02
+1.label=My server 2
+```
+
 ### Run
 
 ```
