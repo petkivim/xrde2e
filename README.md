@@ -74,3 +74,41 @@ After updating the configuration it's time to start the system using Docker Comp
 ```
 docker-compose up -d
 ```
+
+### Using Multiple Clients
+
+Using multipe clients require some changes to [docker-compose.yml](https://github.com/petkivim/xrde2e/blob/master/docker-compose.yml) file. Below there's the client configuration for a single client.
+
+```
+xrde2e-client:
+    image: xrde2e-client:latest
+    depends_on:
+      - db
+    volumes:
+      - /var/xrde2e-client:/my/conf:Z
+    environment:
+- JAVA_OPTS=-DpropertiesDirectory=/my/conf/
+```
+
+Below there's an example configuration for two clients: test and prod. In addition, both clients need their own ```xrde2e.properties``` file that are located in ```/var/xrde2e-client-test``` and ```/var/xrde2e-client-prod```.
+
+```
+xrde2e-client-test:
+    image: xrde2e-client:latest
+    depends_on:
+      - db
+    volumes:
+      - /var/xrde2e-client-test:/my/conf:Z
+    environment:
+- JAVA_OPTS=-DpropertiesDirectory=/my/conf/
+xrde2e-client-prod:
+    image: xrde2e-client:latest
+    depends_on:
+      - db
+    volumes:
+      - /var/xrde2e-client-prod:/my/conf:Z
+    environment:
+- JAVA_OPTS=-DpropertiesDirectory=/my/conf/
+```
+
+After the configuration changes just restart the system.
