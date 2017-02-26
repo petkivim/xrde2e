@@ -112,3 +112,18 @@ xrde2e-client-prod:
 ```
 
 After the configuration changes just restart the system.
+
+### Using Mutual SSL Authentication
+
+Especially in a production environment it's a good idea to use mutual SSL authentication between the client and the client security server. This requires generating self-signed certificate for the client and importing it to the security server. Likewise, the security server's certificate must be imported to the client's trust store. In addition, the location of the keystore and truststore files must be defined in the ```docker-compose.yml``` file.
+
+```
+  xrde2e-client:
+    image: xrde2e-client:latest
+    depends_on:
+      - db
+    volumes:
+      - /var/xrde2e-client:/my/conf:Z
+    environment:
+      - JAVA_OPTS=-DpropertiesDirectory=/my/conf/ -Djavax.net.ssl.trustStore=/my/conf/xrde2eTestTrustStore.jks -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.ssl.keyStore=/my/conf/xrde2eTestKeyStore.jks -Djavax.net.ssl.keyStorePassword=changeit
+ ```
