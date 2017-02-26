@@ -7,3 +7,9 @@ XRdE2E is an end-to-end monitoring tool for X-Road security servers. Monitoring 
 ```
 ./build_docker_images.sh
 ```
+
+### Run
+
+```
+docker-compose up -d
+```
