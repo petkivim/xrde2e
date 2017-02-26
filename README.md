@@ -77,7 +77,7 @@ docker-compose up -d
 
 ### Using Multiple Clients
 
-Using multipe clients require some changes to [docker-compose.yml](https://github.com/petkivim/xrde2e/blob/master/docker-compose.yml) file. Below there's the client configuration for a single client.
+Using multipe clients requires some changes to [docker-compose.yml](https://github.com/petkivim/xrde2e/blob/master/docker-compose.yml) file. Below there's the client configuration for a single client.
 
 ```
 xrde2e-client:
