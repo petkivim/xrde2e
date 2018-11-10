@@ -33,10 +33,10 @@ import com.pkrete.xrde2e.common.event.E2EEvent;
  */
 public interface StorageManager {
 
-    public boolean add(E2EEvent event);
+    boolean add(E2EEvent event);
 
-    public boolean deleteOlderThan(int days);
+    boolean deleteOlderThan(int days);
     
-    public boolean deleteOlderThanFromCurrent(int hours);
+    boolean deleteOlderThanFromCurrent(int hours);
 
 }

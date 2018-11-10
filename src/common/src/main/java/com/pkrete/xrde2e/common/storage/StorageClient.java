@@ -24,6 +24,7 @@
 package com.pkrete.xrde2e.common.storage;
 
 import com.pkrete.xrde2e.common.event.E2EEvent;
+
 import java.util.List;
 
 /**
@@ -33,8 +34,8 @@ import java.util.List;
  */
 public interface StorageClient {
 
-    public List<E2EEvent> getAllCurrent();
+    List<E2EEvent> getAllCurrent();
 
-    public List<E2EEvent> getHistorical(String securityServer, int limit);
+    List<E2EEvent> getHistorical(String securityServer, int limit);
 
 }

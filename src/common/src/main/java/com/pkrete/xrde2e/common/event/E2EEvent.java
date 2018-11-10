@@ -32,7 +32,7 @@ import java.util.Date;
  *
  * @author Petteri Kivimäki
  */
-public class E2EEvent implements Serializable {
+public final class E2EEvent implements Serializable {
 
     private String label;
     private String producerMember;

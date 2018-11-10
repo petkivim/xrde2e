@@ -23,10 +23,11 @@
  */
 package com.pkrete.xrde2e.common.event;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * This class presents a queue of E2EEvent objects that are waiting to be stored
@@ -42,7 +43,7 @@ import org.slf4j.LoggerFactory;
  * object is created runtime, and it's referenced by all the other objects.
  * Because of this, thread safe implementation is essential.
  */
-public class E2EEventQueue {
+public final class E2EEventQueue {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(E2EEventQueue.class);
     private final BlockingQueue<E2EEvent> queue;

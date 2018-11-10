@@ -1,4 +1,3 @@
-
 /*
  * The MIT License
  *
@@ -24,27 +23,30 @@
  */
 package com.pkrete.xrde2e.client;
 
-import com.pkrete.xrde2e.common.event.E2EEventQueueProcessor;
+
 import com.pkrete.xrde2e.client.mongodb.MongoDbManager;
+import com.pkrete.xrde2e.client.thread.E2EWorker;
+import com.pkrete.xrde2e.client.util.ApplicationHelper;
+import com.pkrete.xrde2e.client.util.Constants;
+import com.pkrete.xrde2e.common.event.E2EEventQueueProcessor;
+import com.pkrete.xrde2e.common.storage.StorageCleaner;
 import com.pkrete.xrde2e.common.storage.StorageManager;
+
 import org.niis.xrd4j.common.member.ConsumerMember;
 import org.niis.xrd4j.common.message.ServiceRequest;
 import org.niis.xrd4j.common.util.MessageHelper;
 import org.niis.xrd4j.common.util.PropertiesUtil;
-import com.pkrete.xrde2e.client.thread.E2EWorker;
-import com.pkrete.xrde2e.client.util.ApplicationHelper;
-import com.pkrete.xrde2e.client.util.Constants;
-import com.pkrete.xrde2e.common.storage.StorageCleaner;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- *
  * Main class for the application.
  *
  * @author Petteri Kivimäki
@@ -63,6 +65,9 @@ public class Main {
         new Main().start();
     }
 
+    /**
+     * Starts XRdE2E client.
+     */
     public void start() {
         // Init local variables
         Properties settings;
@@ -153,17 +158,17 @@ public class Main {
                 Thread.currentThread().interrupt();
             }
         }
-        // The shutdown() method doesn’t cause an immediate destruction 
-        // of the ExecutorService. It will make the ExecutorService stop 
-        // accepting new tasks and shut down after all running threads 
+        // The shutdown() method doesn’t cause an immediate destruction
+        // of the ExecutorService. It will make the ExecutorService stop
+        // accepting new tasks and shut down after all running threads
         // finish their current work.
         executor.shutdown();
 
         try {
-            // Blocks until all tasks have completed execution after a shutdown 
-            // request, or the timeout occurs, or the current thread is 
-            // interrupted, whichever happens first. Returns true if this 
-            // executor is terminated and false if the timeout elapsed 
+            // Blocks until all tasks have completed execution after a shutdown
+            // request, or the timeout occurs, or the current thread is
+            // interrupted, whichever happens first. Returns true if this
+            // executor is terminated and false if the timeout elapsed
             // before termination.
             while (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
                 // Wait for executor to be terminated

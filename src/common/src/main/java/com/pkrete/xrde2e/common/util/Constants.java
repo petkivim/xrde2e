@@ -28,7 +28,7 @@ package com.pkrete.xrde2e.common.util;
  *
  * @author Petteri Kivimäki
  */
-public class Constants {
+public final class Constants {
 
     /**
      * Database, table and column names

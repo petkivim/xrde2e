@@ -23,11 +23,12 @@
  */
 package com.pkrete.xrde2e.backend.api.v1;
 
-import java.util.HashMap;
-import java.util.Map;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Simple controller for overriding the default error white label error page.
@@ -43,6 +44,10 @@ public class CustomErrorController implements ErrorController {
         return "/error";
     }
 
+    /**
+     * Return an error message when requested page/path is not found.
+     * @return
+     */
     @RequestMapping
     public Map<String, String> error() {
         Map<String, String> body = new HashMap<>();

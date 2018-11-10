@@ -25,14 +25,16 @@ package com.pkrete.xrde2e.backend.api.v1;
 
 import com.pkrete.xrde2e.common.event.E2EEvent;
 import com.pkrete.xrde2e.common.storage.StorageClient;
-import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 /**
  * This class implements a REST API for accessing to E2E monitoring data.
  *

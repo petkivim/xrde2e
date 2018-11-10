@@ -24,6 +24,7 @@
 package com.pkrete.xrde2e.common.event;
 
 import com.pkrete.xrde2e.common.storage.StorageManager;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +50,7 @@ public class E2EEventQueueProcessor implements Runnable {
 
     /**
      * Constructs and initializes a new E2EEventQueueProcessor object.
-     * @param storageManager storage manager is responsible for storing 
+     * @param storageManager storage manager is responsible for storing
      * E2E events to the storage
      */
     public E2EEventQueueProcessor(StorageManager storageManager) {
@@ -65,10 +66,11 @@ public class E2EEventQueueProcessor implements Runnable {
     @Override
     public void run() {
         LOGGER.info("E2EEventQueueProcessor started.");
-        E2EEvent event;
-        while ((event = queue.take()) != null && !Thread.currentThread().isInterrupted()) {
+        E2EEvent event = queue.take();
+        while (event != null && !Thread.currentThread().isInterrupted()) {
             LOGGER.debug("New event received: \"{}\"", event.toString());
             this.storageManager.add(event);
+            event = queue.take();
         }
     }
 }

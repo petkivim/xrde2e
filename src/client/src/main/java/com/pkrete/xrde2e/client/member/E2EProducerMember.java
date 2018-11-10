@@ -36,7 +36,8 @@ public class E2EProducerMember extends ProducerMember {
 
     private String label;
 
-    public E2EProducerMember(String xRoadInstance, String memberClass, String memberCode, String subsystemCode, String serviceCode, String label) throws XRd4JException {
+    public E2EProducerMember(String xRoadInstance, String memberClass, String memberCode, String subsystemCode, String serviceCode, String label)
+            throws XRd4JException {
         super(xRoadInstance, memberClass, memberCode, subsystemCode, serviceCode);
         this.label = label;
     }

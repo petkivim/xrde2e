@@ -23,22 +23,24 @@
  */
 package com.pkrete.xrde2e.backend.mongodb;
 
+import com.pkrete.xrde2e.common.event.E2EEvent;
+import com.pkrete.xrde2e.common.storage.StorageClient;
+import com.pkrete.xrde2e.common.util.Constants;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import com.pkrete.xrde2e.common.event.E2EEvent;
-import com.pkrete.xrde2e.common.storage.StorageClient;
-import com.pkrete.xrde2e.common.util.Constants;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * This class implements all the database operations needed by the API layer.

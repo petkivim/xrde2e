@@ -24,9 +24,11 @@
 package com.pkrete.xrde2e.common.event;
 
 import org.niis.xrd4j.common.util.MessageHelper;
+
+import junit.framework.TestCase;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import junit.framework.TestCase;
 
 /**
  * Test cases for E2EEvent class.

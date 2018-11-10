@@ -28,7 +28,7 @@ package com.pkrete.xrde2e.client.util;
  *
  * @author Petteri Kivimäki
  */
-public class Constants {
+public final class Constants {
 
     /**
      * Configuration file names

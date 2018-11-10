@@ -23,12 +23,15 @@
  */
 package com.pkrete.xrde2e.client.util;
 
+import com.pkrete.xrde2e.client.member.E2EProducerMember;
+
 import org.niis.xrd4j.common.member.ConsumerMember;
 import org.niis.xrd4j.common.message.ServiceRequest;
-import com.pkrete.xrde2e.client.member.E2EProducerMember;
+
+import junit.framework.TestCase;
+
 import java.util.List;
 import java.util.Properties;
-import junit.framework.TestCase;
 
 /**
  * Test cases for ApplicationHelper utility class.

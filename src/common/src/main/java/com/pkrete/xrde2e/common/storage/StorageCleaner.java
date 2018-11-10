@@ -39,6 +39,13 @@ public class StorageCleaner implements Runnable {
     private final int deleteOlderThanInterval;
     private final int deleteOlderThanFromCurrent;
 
+    /**
+     * Constructs and initializes a new StorageCleaner object.
+     * @param storageManager
+     * @param deleteOlderThan
+     * @param deleteOlderThanInterval
+     * @param deleteOlderThanFromCurrent
+     */
     public StorageCleaner(StorageManager storageManager, int deleteOlderThan, int deleteOlderThanInterval, int deleteOlderThanFromCurrent) {
         this.storageManager = storageManager;
         this.deleteOlderThan = deleteOlderThan;

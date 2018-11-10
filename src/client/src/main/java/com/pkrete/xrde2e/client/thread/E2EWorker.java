@@ -23,17 +23,20 @@
  */
 package com.pkrete.xrde2e.client.thread;
 
+import com.pkrete.xrde2e.client.member.E2EProducerMember;
 import com.pkrete.xrde2e.common.event.E2EEvent;
 import com.pkrete.xrde2e.common.event.E2EEventQueue;
+
 import org.niis.xrd4j.client.SOAPClient;
 import org.niis.xrd4j.client.SOAPClientImpl;
 import org.niis.xrd4j.common.message.ServiceRequest;
 import org.niis.xrd4j.common.message.ServiceResponse;
 import org.niis.xrd4j.common.util.MessageHelper;
-import com.pkrete.xrde2e.client.member.E2EProducerMember;
-import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Date;
 
 /**
  * This class is responsible for calling security server's listMethods service
@@ -50,6 +53,12 @@ public class E2EWorker implements Runnable {
     private static int count = 0;
     private final int number;
 
+    /**
+     * Constructs and initializes a new E2EWorker object.
+     * @param url
+     * @param interval
+     * @param request
+     */
     public E2EWorker(String url, int interval, ServiceRequest request) {
         this.url = url;
         this.interval = interval;
@@ -99,7 +108,8 @@ public class E2EWorker implements Runnable {
                     status = true;
                     LOGGER.debug("Thread #{} received response for message #{}, ID : \"{}\".", this.number, requestCount, reqId);
                 }
-                LOGGER.info("Server \"{}\" status: {}. Request \"{}\" duration {}ms. Fault code: \"{}\"", request.getSecurityServer().getServerCode(), status, reqId, throughput, faultCode);
+                LOGGER.info("Server \"{}\" status: {}. Request \"{}\" duration {}ms. Fault code: \"{}\"",
+                        request.getSecurityServer().getServerCode(), status, reqId, throughput, faultCode);
             } catch (Exception ex) {
                 LOGGER.error("Thread #{} sending message #{} failed, ID : \"{}\".", this.number, requestCount, reqId);
                 LOGGER.error(ex.getMessage(), ex);

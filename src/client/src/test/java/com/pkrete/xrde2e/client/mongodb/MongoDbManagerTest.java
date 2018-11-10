@@ -23,14 +23,18 @@
  */
 package com.pkrete.xrde2e.client.mongodb;
 
-import org.niis.xrd4j.common.util.MessageHelper;
 import com.pkrete.xrde2e.common.event.E2EEvent;
 import com.pkrete.xrde2e.common.util.Constants;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import static junit.framework.Assert.assertEquals;
+
+import org.niis.xrd4j.common.util.MessageHelper;
+
 import junit.framework.TestCase;
 import org.bson.Document;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import static junit.framework.Assert.assertEquals;
 
 /**
  * Test cases for MongoDbManager class.
