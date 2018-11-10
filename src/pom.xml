@@ -33,6 +33,31 @@
         <developerConnection>scm:git:git@github.com:petkivim/xrde2e.git</developerConnection>
         <url>git@github.com:petkivim/xrde2e.git</url>
     </scm>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>3.3.4</version>
+                <configuration>
+                    <cveValidForHours>24</cveValidForHours>
+                    <skip>false</skip>
+                    <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+                    <enableExperimental>false</enableExperimental>
+                    <suppressionFiles>
+                        <suppressionFile>dependency-check-suppressions.xml</suppressionFile>
+                    </suppressionFiles>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
     <developers>
         <developer>
             <id>petkivim</id>
