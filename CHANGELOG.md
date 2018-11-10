@@ -7,4 +7,5 @@
 - Add OWASP dependency check Maven plugin
 - Add Checkstyle Maven plugin and configuration
 - Fix Checkstyle errors
+- Fix SonarQube findings
 - Add `CHANGELOG.md`
