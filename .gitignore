@@ -16,3 +16,7 @@ src/client/target/
 src/common/target/
 src/backend/target/
 /src/target/
+
+# Other files and folders
+.idea/
+*.iml
