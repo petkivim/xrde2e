@@ -74,11 +74,25 @@ consumer=FI-TEST.GOV.0245437-2.MyTestClient
 
 ### Run
 
-After updating the configuration it's time to start the system using Docker Compose.
+After updating the configuration it's time to start the system using Docker Compose. The command below starts the containers in the background and leaves them running.
 
 ```
 docker-compose up -d
 ```
+
+Follow log output. The output of each container is aggregated to a single log stream.
+
+```
+docker-compose logs -f
+```
+
+Stop the containers.
+
+```
+docker-compose stop
+```
+
+Overview of Docker Compose CLI is available [here](https://docs.docker.com/compose/reference/overview/).
 
 ### Using Multiple Clients
 
