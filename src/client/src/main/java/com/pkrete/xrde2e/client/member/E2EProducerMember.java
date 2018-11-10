@@ -23,8 +23,8 @@
  */
 package com.pkrete.xrde2e.client.member;
 
-import com.pkrete.xrd4j.common.exception.XRd4JException;
-import com.pkrete.xrd4j.common.member.ProducerMember;
+import org.niis.xrd4j.common.exception.XRd4JException;
+import org.niis.xrd4j.common.member.ProducerMember;
 
 /**
  * This class extends the ProducerMember class and adds a new label instance

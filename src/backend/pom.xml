@@ -20,7 +20,7 @@
         <spring.version>1.4.2.RELEASE</spring.version>
         <xrde2e.version>0.0.3-SNAPSHOT</xrde2e.version>
         <junit.version>3.8.1</junit.version>
-        <xrd4j.version>0.0.16</xrd4j.version>
+        <xrd4j.version>0.3.0</xrd4j.version>
     </properties>
     <dependencies>
         <dependency>
@@ -50,7 +50,7 @@
             <version>${xrde2e.version}</version>
         </dependency>   
         <dependency>
-            <groupId>com.pkrete.xrd4j</groupId>
+            <groupId>org.niis.xrd4j</groupId>
             <artifactId>common</artifactId>
             <version>${xrd4j.version}</version>
             <scope>test</scope>

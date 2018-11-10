@@ -23,8 +23,8 @@
  */
 package com.pkrete.xrde2e.client.util;
 
-import com.pkrete.xrd4j.common.member.ConsumerMember;
-import com.pkrete.xrd4j.common.message.ServiceRequest;
+import org.niis.xrd4j.common.member.ConsumerMember;
+import org.niis.xrd4j.common.message.ServiceRequest;
 import com.pkrete.xrde2e.client.member.E2EProducerMember;
 import java.util.List;
 import java.util.Properties;

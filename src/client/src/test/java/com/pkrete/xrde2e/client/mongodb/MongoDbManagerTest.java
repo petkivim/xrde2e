@@ -23,7 +23,7 @@
  */
 package com.pkrete.xrde2e.client.mongodb;
 
-import com.pkrete.xrd4j.common.util.MessageHelper;
+import org.niis.xrd4j.common.util.MessageHelper;
 import com.pkrete.xrde2e.common.event.E2EEvent;
 import com.pkrete.xrde2e.common.util.Constants;
 import java.text.ParseException;

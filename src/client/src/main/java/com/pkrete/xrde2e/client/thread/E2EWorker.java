@@ -25,11 +25,11 @@ package com.pkrete.xrde2e.client.thread;
 
 import com.pkrete.xrde2e.common.event.E2EEvent;
 import com.pkrete.xrde2e.common.event.E2EEventQueue;
-import com.pkrete.xrd4j.client.SOAPClient;
-import com.pkrete.xrd4j.client.SOAPClientImpl;
-import com.pkrete.xrd4j.common.message.ServiceRequest;
-import com.pkrete.xrd4j.common.message.ServiceResponse;
-import com.pkrete.xrd4j.common.util.MessageHelper;
+import org.niis.xrd4j.client.SOAPClient;
+import org.niis.xrd4j.client.SOAPClientImpl;
+import org.niis.xrd4j.common.message.ServiceRequest;
+import org.niis.xrd4j.common.message.ServiceResponse;
+import org.niis.xrd4j.common.util.MessageHelper;
 import com.pkrete.xrde2e.client.member.E2EProducerMember;
 import java.util.Date;
 import org.slf4j.Logger;

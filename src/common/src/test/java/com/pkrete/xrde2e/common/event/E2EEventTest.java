@@ -23,7 +23,7 @@
  */
 package com.pkrete.xrde2e.common.event;
 
-import com.pkrete.xrd4j.common.util.MessageHelper;
+import org.niis.xrd4j.common.util.MessageHelper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import junit.framework.TestCase;

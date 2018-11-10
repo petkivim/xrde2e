@@ -19,18 +19,18 @@
     <properties>
         <slf4j.version>1.7.7</slf4j.version>
         <log4j.version>1.2.16</log4j.version>
-        <xrd4j.version>0.0.16</xrd4j.version>
+        <xrd4j.version>0.3.0</xrd4j.version>
         <xrde2e.version>0.0.3-SNAPSHOT</xrde2e.version>
         <junit.version>3.8.1</junit.version>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.pkrete.xrd4j</groupId>
+            <groupId>org.niis.xrd4j</groupId>
             <artifactId>common</artifactId>
             <version>${xrd4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.pkrete.xrd4j</groupId>
+            <groupId>org.niis.xrd4j</groupId>
             <artifactId>client</artifactId>
             <version>${xrd4j.version}</version>
         </dependency>
@@ -79,8 +79,6 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
                     <archive>
                         <manifest>
                             <mainClass>com.pkrete.xrde2e.client.Main</mainClass>
