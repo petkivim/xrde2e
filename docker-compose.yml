@@ -14,6 +14,8 @@ services:
       - /var/xrde2e-client:/my/conf:Z
     environment:
       - JAVA_OPTS=-DpropertiesDirectory=/my/conf/
+    links:
+      - db
   xrde2e-backend:
     image: xrde2e-backend:latest
     depends_on:
