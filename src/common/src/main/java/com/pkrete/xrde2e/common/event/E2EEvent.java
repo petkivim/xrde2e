@@ -285,10 +285,7 @@ public final class E2EEvent implements Serializable {
      * the same id as this E2EEvent
      */
     public boolean equals(Object o) {
-        if (o instanceof E2EEvent && this.requestId.equals(((E2EEvent) o).getRequestId())) {
-            return true;
-        }
-        return false;
+        return (o instanceof E2EEvent && this.requestId.equals(((E2EEvent) o).getRequestId()));
     }
 
     @Override

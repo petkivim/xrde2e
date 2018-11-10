@@ -119,10 +119,14 @@ public final class ApplicationHelper {
         // Execution order system property, jar path, inside jar file
         if (logConfProperty.exists()) {
             DOMConfigurator.configure(logConfProperty.getAbsolutePath());
-            LOGGER.info("Logging configuration loaded from " + logConfProperty.getAbsolutePath());
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("Logging configuration loaded from {}", logConfProperty.getAbsolutePath());
+            }
         } else if (logConf.exists()) {
             DOMConfigurator.configure(logConf.getAbsolutePath());
-            LOGGER.info("Logging configuration loaded from " + logConf.getAbsolutePath());
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("Logging configuration loaded from {}", logConf.getAbsolutePath());
+            }
         } else {
             DOMConfigurator.configure(ApplicationHelper.class.getClassLoader().getResource(Constants.LOG4J_SETTINGS_FILE));
             LOGGER.info("Couldn't find external configuration files. Use default configuration.");
@@ -225,8 +229,10 @@ public final class ApplicationHelper {
                 // Set security server
                 request.setSecurityServer(securityServer);
                 targets.add(request);
-                LOGGER.info("New producer found: \"{}\"", producer.toString());
-                LOGGER.info("New server found: \"{}\"", securityServer.toString());
+                if (LOGGER.isInfoEnabled()) {
+                    LOGGER.info("New producer found: \"{}\"", producer);
+                    LOGGER.info("New server found: \"{}\"", securityServer);
+                }
             } catch (XRd4JException ex) {
                 LOGGER.error(ex.getMessage(), ex);
             }
@@ -281,7 +287,9 @@ public final class ApplicationHelper {
             ConsumerMember consumer = new ConsumerMember(
                     parts[INSTANCE_ID_INDEX], parts[MEMBER_CLASS_INDEX],
                     parts[MEMBER_CODE_INDEX], parts[SUBSYSTEM_INDEX]);
-            LOGGER.info("Consumer found: \"{}\"", consumer.toString());
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("Consumer found: \"{}\"", consumer);
+            }
             return consumer;
         } catch (XRd4JException ex) {
             LOGGER.error(ex.getMessage(), ex);

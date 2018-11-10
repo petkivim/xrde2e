@@ -68,7 +68,9 @@ public class E2EEventQueueProcessor implements Runnable {
         LOGGER.info("E2EEventQueueProcessor started.");
         E2EEvent event = queue.take();
         while (event != null && !Thread.currentThread().isInterrupted()) {
-            LOGGER.debug("New event received: \"{}\"", event.toString());
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("New event received: \"{}\"", event);
+            }
             this.storageManager.add(event);
             event = queue.take();
         }

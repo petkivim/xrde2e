@@ -55,6 +55,7 @@ public class E2EWorker implements Runnable {
 
     /**
      * Constructs and initializes a new E2EWorker object.
+     *
      * @param url
      * @param interval
      * @param request
@@ -69,7 +70,9 @@ public class E2EWorker implements Runnable {
 
     @Override
     public void run() {
-        LOGGER.info("Thread #{} starting to monitor security server \"{}\".", this.number, request.getSecurityServer().toString());
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Thread #{} starting to monitor security server \"{}\".", this.number, request.getSecurityServer());
+        }
         // Init variables for counting requests and time
         int requestCount = 0;
         String label = ((E2EProducerMember) this.request.getProducer()).getLabel();
@@ -141,6 +144,8 @@ public class E2EWorker implements Runnable {
             // Update request counter
             requestCount++;
         }
-        LOGGER.info("Thread #{} quitting to monitor security server \"{}\".", this.number, request.getSecurityServer().toString());
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Thread #{} quitting to monitor security server \"{}\".", this.number, request.getSecurityServer());
+        }
     }
 }

@@ -79,7 +79,7 @@ public class Main {
         String propertiesDirectoryParameter = System.getProperty(Constants.PROPERTIES_DIR_PARAM_NAME);
         if (propertiesDirectoryParameter != null) {
             settings = PropertiesUtil.getInstance().load(propertiesDirectoryParameter + Constants.PROPERTIES_FILE, false);
-            LOGGER.debug("Reading XRdE2E properties from \"{}\".", propertiesDirectoryParameter + Constants.PROPERTIES_FILE);
+            LOGGER.debug("Reading XRdE2E properties from \"{}{}\".", propertiesDirectoryParameter, Constants.PROPERTIES_FILE);
         } else {
             settings = PropertiesUtil.getInstance().load("/" + Constants.PROPERTIES_FILE);
             LOGGER.debug("Reading XRdE2E properties from \"{}\".", "/" + Constants.PROPERTIES_FILE);
