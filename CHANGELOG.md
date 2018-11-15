@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.3-SNAPSHOT - 2018-11-15
+`
+- Add support for defining proxy URL using a Java property (`-Dproxy=http://<HOST>`)
+
 ## 0.0.3-SNAPSHOT - 2018-11-10
 `
 - Update XRd4J dependency from `com.pkrete.xrd4j` to `org.niis.xrd4j`

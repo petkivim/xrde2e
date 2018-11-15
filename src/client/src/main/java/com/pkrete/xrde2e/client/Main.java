@@ -85,7 +85,7 @@ public class Main {
             LOGGER.debug("Reading XRdE2E properties from \"{}\".", "/" + Constants.PROPERTIES_FILE);
         }
         LOGGER.debug("Setting XRdE2E properties.");
-        String url = settings.getProperty(Constants.PROPERTIES_PROXY);
+        String url = System.getProperty(Constants.PROPERTIES_PROXY, settings.getProperty(Constants.PROPERTIES_PROXY));
         int interval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_INTERVAL));
         int deleteOlderThan = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN));
         int deleteOlderThanFromCurrent = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN_CURRENT));
