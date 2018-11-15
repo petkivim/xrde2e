@@ -92,7 +92,15 @@ Stop the containers.
 docker-compose stop
 ```
 
+Stop and remove the containers.
+
+```
+docker-compose down
+```
+
 Overview of Docker Compose CLI is available [here](https://docs.docker.com/compose/reference/overview/).
+
+In case it is not possible to access a Security Server, XRdE2E can be tested using [list-methods-dummy-service](list-methods-dummy-service/README.md) that provides a mock up of Security Server's `listMethods` meta service.
 
 ### Using Multiple Clients
 

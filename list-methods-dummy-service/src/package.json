@@ -1,0 +1,18 @@
+{
+  "name": "list-methods-dummy-service",
+  "version": "1.0.0",
+  "description": "Web service that provides X-Road Security Server listMethods dummy service.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Petteri Kivimäki",
+  "license": "MIT",
+  "repository": "http://github.com/petkivim/xrde2e/list-methods-dummy-service/",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
