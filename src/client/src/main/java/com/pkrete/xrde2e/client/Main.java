@@ -93,7 +93,8 @@ public class Main {
         int threadInterval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_THREAD_INTERVAL));
         String dbHost = settings.getProperty(Constants.PROPERTIES_DB_HOST);
         int dbPort = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DB_PORT));
-        String dbConnectionString = settings.getProperty(Constants.PROPERTIES_DB_CONNECTION_STRING);
+        String dbConnectionString = System.getProperty(Constants.PROPERTIES_DB_CONNECTION_STRING,
+                settings.getProperty(Constants.PROPERTIES_DB_CONNECTION_STRING));
 
         LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_PROXY, url);
         LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_INTERVAL, interval);
