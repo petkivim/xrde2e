@@ -10,12 +10,6 @@
   - Remove `FileETag` header from responses
   - Modify `ServerSignature` and `ServerTokens` values
 
-  X-Frame-Options "deny"
-
-  Header set X-XSS-Protection "1; mode=block"
-
-  Header set X-Content-Type-Options nosniff
-
 ## 0.0.3-SNAPSHOT - 2018-11-15
 
 - Add support for defining proxy URL using a Java property (`-Dproxy=http://<HOST>`)
