@@ -1,6 +1,6 @@
-# XRdE2E
+# X-Road End-to-End Monitoring Tool (XRdE2E)
 
-XRdE2E is an end-to-end monitoring tool for X-Road security servers. Monitoring of the security servers is done using the ```listMethods``` meta service. If security server sends a valid response, it means that ```proxy``` and ```signer``` components are both working fine.
+X-Road End-to-End Monitoring Tool (XRdE2E) is an end-to-end monitoring tool for X-Road security servers. Monitoring of the security servers is done using the ```listMethods``` meta service. If security server sends a valid response, it means that ```proxy``` and ```signer``` components are both working fine.
 
 XRdE2E includes four components:
 
@@ -55,7 +55,7 @@ deleteOlderThanFromCurrent=12
 deleteOlderThanInterval=1
 # Consumer identifier
 consumer=FI-TEST.GOV.0245437-2.MyTestClient
-# List of targets in format: 
+# List of targets in format:
 # x.subsystem=instanceIdentifier.memberClass.memberCode.subsystemCode
 # x.server=instanceIdentifier.memberClass.memberCode.serverCode
 # x.label=Human readable name for the target
