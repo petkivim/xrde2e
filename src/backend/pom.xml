@@ -19,7 +19,7 @@
     <properties>
         <spring.version>2.1.0.RELEASE</spring.version>
         <xrde2e.version>0.0.3-SNAPSHOT</xrde2e.version>
-        <junit.version>3.8.1</junit.version>
+        <junit.version>4.13.1</junit.version>
         <xrd4j.version>0.3.0</xrd4j.version>
     </properties>
     <dependencies>
