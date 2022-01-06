@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.3-SNAPSHOT - 2022-01-06
+
+- Update XRd4J version to `0.4.0`
+- Update Spring Boot from version `2.1.0` to `2.6.2`
+- Update other dependencies
+
 ## 0.0.3-SNAPSHOT - 2018-11-18
 
 - Move UI module's Apache configuration from Dockerfile to `httpd.conf` file

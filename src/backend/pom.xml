@@ -17,10 +17,10 @@
     </description>
     <url>https://github.com/petkivim/xrde2e</url>
     <properties>
-        <spring.version>2.1.0.RELEASE</spring.version>
+        <spring.version>2.6.2</spring.version>
         <xrde2e.version>0.0.3-SNAPSHOT</xrde2e.version>
         <junit.version>3.8.1</junit.version>
-        <xrd4j.version>0.3.0</xrd4j.version>
+        <xrd4j.version>0.4.0</xrd4j.version>
     </properties>
     <dependencies>
         <dependency>
@@ -28,17 +28,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-            <version>${spring.version}</version>
-        </dependency>-->
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
@@ -48,7 +37,7 @@
             <groupId>com.pkrete.xrde2e</groupId>
             <artifactId>common</artifactId>
             <version>${xrde2e.version}</version>
-        </dependency>   
+        </dependency>
         <dependency>
             <groupId>org.niis.xrd4j</groupId>
             <artifactId>common</artifactId>

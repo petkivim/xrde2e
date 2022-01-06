@@ -17,9 +17,9 @@
     </description>
     <url>https://github.com/petkivim/xrde2e</url>
     <properties>
-        <slf4j.version>1.7.7</slf4j.version>
+        <slf4j.version>1.7.30</slf4j.version>
         <junit.version>3.8.1</junit.version>
-        <xrd4j.version>0.3.0</xrd4j.version>
+        <xrd4j.version>0.4.0</xrd4j.version>
     </properties>
     <dependencies>
 
