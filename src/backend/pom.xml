@@ -17,7 +17,7 @@
     </description>
     <url>https://github.com/petkivim/xrde2e</url>
     <properties>
-        <spring.version>2.6.2</spring.version>
+        <spring.version>2.6.6</spring.version>
         <xrde2e.version>0.0.3-SNAPSHOT</xrde2e.version>
         <junit.version>3.8.1</junit.version>
         <xrd4j.version>0.4.0</xrd4j.version>
