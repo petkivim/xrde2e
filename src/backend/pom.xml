@@ -19,7 +19,7 @@
     <properties>
         <spring.version>2.7.18</spring.version>
         <xrde2e.version>0.0.3-SNAPSHOT</xrde2e.version>
-        <mongodb.version>3.3.0</mongodb.version>
+        <mongodb.version>3.8.0</mongodb.version>
     </properties>
     <dependencies>
         <dependency>
