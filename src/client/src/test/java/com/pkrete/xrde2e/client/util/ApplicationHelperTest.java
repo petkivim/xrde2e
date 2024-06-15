@@ -28,21 +28,24 @@ import com.pkrete.xrde2e.client.member.E2EProducerMember;
 import org.niis.xrd4j.common.member.ConsumerMember;
 import org.niis.xrd4j.common.message.ServiceRequest;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Properties;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test cases for ApplicationHelper utility class.
  *
  * @author Petteri Kivimäki
  */
-public class ApplicationHelperTest extends TestCase {
+public class ApplicationHelperTest {
 
     /**
      * Test valid consumer.
      */
+    @Test
     public void testExtractConsumer0() {
         ConsumerMember consumer = ApplicationHelper.extractConsumer("FI-PILOT.GOV.1019125-0.DemoClient");
         assertEquals(false, consumer == null);

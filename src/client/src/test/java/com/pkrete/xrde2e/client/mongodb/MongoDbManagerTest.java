@@ -28,26 +28,27 @@ import com.pkrete.xrde2e.common.util.Constants;
 
 import org.niis.xrd4j.common.util.MessageHelper;
 
-import junit.framework.TestCase;
 import org.bson.Document;
+import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test cases for MongoDbManager class.
  *
  * @author Petteri Kivimäki
  */
-public class MongoDbManagerTest extends TestCase {
+public class MongoDbManagerTest {
 
     /**
      * Test conversion from E2EEvent to Document.
      *
      * @throws java.text.ParseException
      */
+    @Test
     public void testDocumentToE2EEvent0() throws ParseException {
         // Init values
         String requestId = MessageHelper.generateId();
