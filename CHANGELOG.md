@@ -4,6 +4,8 @@
 
 - Update Spring Boot from version `2.6.2` to `2.7.18`
 - Update other dependencies
+- Update supported Java version from Java 8 to Java 11
+- Change Docker base image from `java:8` to `eclipse-temurin:11-jre`
 
 ## 0.0.3-SNAPSHOT - 2022-01-06
 
