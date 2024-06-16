@@ -28,7 +28,7 @@ import com.pkrete.xrde2e.common.storage.StorageClient;
 import com.pkrete.xrde2e.common.util.Constants;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
