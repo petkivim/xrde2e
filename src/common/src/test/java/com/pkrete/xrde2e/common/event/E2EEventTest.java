@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2016 Petteri Kivimäki
+ * Copyright 2016- Petteri Kivimäki
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,23 +25,26 @@ package com.pkrete.xrde2e.common.event;
 
 import org.niis.xrd4j.common.util.MessageHelper;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test cases for E2EEvent class.
  *
  * @author Petteri Kivimäki
  */
-public class E2EEventTest extends TestCase {
+public class E2EEventTest {
 
     /**
      * Test E2EEventBuilder.
      *
      * @throws java.text.ParseException
      */
+    @Test
     public void testE2EEventBuilder0() throws ParseException {
         String requestId = MessageHelper.generateId();
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");

@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2016 Petteri Kivimäki
+ * Copyright 2016- Petteri Kivimäki
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,18 +28,19 @@ import com.pkrete.xrde2e.common.util.Constants;
 
 import org.niis.xrd4j.common.util.MessageHelper;
 
-import junit.framework.TestCase;
 import org.bson.Document;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test cases for MongoDbClient class.
  *
  * @author Petteri Kivimäki
  */
-public class MongoDbClientTest extends TestCase {
+public class MongoDbClientTest {
 
     /**
      * Test conversion from Document to E2EEvent.

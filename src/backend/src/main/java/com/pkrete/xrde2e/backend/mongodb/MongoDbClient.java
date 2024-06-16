@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2016 Petteri Kivimäki
+ * Copyright 2016- Petteri Kivimäki
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@ import com.pkrete.xrde2e.common.storage.StorageClient;
 import com.pkrete.xrde2e.common.util.Constants;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
