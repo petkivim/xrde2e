@@ -1,13 +1,13 @@
 # X-Road End-to-End Monitoring Tool (XRdE2E)
 
-X-Road End-to-End Monitoring Tool (XRdE2E) is an end-to-end monitoring tool for X-Road security servers. Monitoring of the security servers is done using the ```listMethods``` meta service. If security server sends a valid response, it means that ```proxy``` and ```signer``` components are both working fine.
+X-Road End-to-End Monitoring Tool (XRdE2E) is an end-to-end monitoring tool for X-Road Security Servers. Monitoring of the Security Servers is done using the ```listMethods``` meta service. If Security Server sends a valid response, it means that ```proxy``` and ```signer``` components are both working fine.
 
 XRdE2E includes four components:
 
 * UI - A simple web page for accessing and searching the monitoring data.
-* Backend - REST API that provides access to the monitoring data collected from security servers. The Swagger description of the API is accessible at ```http://{HOST}/apidocs/v1/``` or here: [JSON](https://github.com/petkivim/xrde2e/blob/master/ui/src/apidocs/v1/swagger.json), [YAML](https://github.com/petkivim/xrde2e/blob/master/ui/src/apidocs/v1/swagger.yaml).
+* Backend - REST API that provides access to the monitoring data collected from Security Servers. The Swagger description of the API is accessible at ```http://{HOST}/apidocs/v1/``` or here: [JSON](https://github.com/petkivim/xrde2e/blob/master/ui/src/apidocs/v1/swagger.json), [YAML](https://github.com/petkivim/xrde2e/blob/master/ui/src/apidocs/v1/swagger.yaml).
 * Database - MongoDB database for storing the monitoring data.
-* Client - Monitoring client that collects data from security servers. The client calls the monitored security servers through a client security server as it's not able to call the targets directly.
+* Client - Monitoring client that collects data from Security Servers. The client calls the monitored Security Servers through a client Security Server as it's not able to call the targets directly.
 
 The client is polling each target according to the interval that's defined in the configuration and stores the results in the database. The backend provides REST API for querying the data from the database. The UI fetches the data using the REST API and shows the results to the user. When the user accesses the UI the monitoring data is fetched from the database which is updated asynchronously by the client. The number of days that the data is stored in the database can be configured in the client's configuration.
 
@@ -15,9 +15,9 @@ The diagram below shows the basic deployment of the system.
 
 ![xrde2e-deployment-single](https://github.com/petkivim/xrde2e/blob/master/images/xrde2e-deployment-single.png)
 
-The basic deployment has one major limitation - it's possible to monitor security servers that are all registered in the same X-Road instance. Usually a X-Road member organization has security servers in at least two different instances: test and production. Instead of deploying two different monitoring systems, one for test and another for production, it's better to deploy one monitoring system with multiple clients.
+The basic deployment has one major limitation - it's possible to monitor Security Servers that are all registered in the same X-Road instance. Usually a X-Road member organization has Security Servers in at least two different instances: test and production. Instead of deploying two different monitoring systems, one for test and another for production, it's better to deploy one monitoring system with multiple clients.
 
-Each client can call only one client security server and each security server can be registered in only one instance at the time. Therefore, we need one client and one client security server per instance. However, different clients can share the same database which makes it possible for the user to access monitoring data collected from different instances through the same UI. The diagram below gives an example of this kind of deployment.
+Each client can call only one client Security Server and each Security Server can be registered in only one instance at the time. Therefore, we need one client and one client Security Server per instance. However, different clients can share the same database which makes it possible for the user to access monitoring data collected from different instances through the same UI. The diagram below gives an example of this kind of deployment.
 
 ![xrde2e-deployment-multi](https://github.com/petkivim/xrde2e/blob/master/images/xrde2e-deployment-multi.png)
 
@@ -31,7 +31,7 @@ Each client can call only one client security server and each security server ca
 
 The default configuration expects that client properties can be found from ```/var/xrde2e-client/xrde2e.properties``` file. MongoDB's data directory is ```/var/mongodb```. It's possible to change these locations modifying [docker-compose.yml](https://github.com/petkivim/xrde2e/blob/master/docker-compose.yml) file.
 
-The contents  of the ```/var/xrde2e-client/xrde2e.properties``` file can be seen below. At least ```proxy``` and ```consumer``` properties must be updated.  ```proxy``` property defines the access point to the client security server that's used for calling the target security servers. ```consumer``` is the subsystem that's user for calling the ```listMethods``` meta service of the targets. In addition, the target security servers must be defined using ```x.subsyste```, ```x.server``` and ```x.label``` properties. **NB!** It is very important to replace the ```x``` prefix with the number of the target. Numbering starts from zero and no numbers must not be skipped. Jumping over a number causes that all the targets defined after the missing number are skipped.
+The contents  of the ```/var/xrde2e-client/xrde2e.properties``` file can be seen below. At least ```proxy``` and ```consumer``` properties must be updated.  ```proxy``` property defines the access point to the client Security Server that's used for calling the target Security Servers. ```consumer``` is the subsystem that's user for calling the ```listMethods``` meta service of the targets. In addition, the target Security Servers must be defined using ```x.subsyste```, ```x.server``` and ```x.label``` properties. **NB!** It is very important to replace the ```x``` prefix with the number of the target. Numbering starts from zero and no numbers must not be skipped. Jumping over a number causes that all the targets defined after the missing number are skipped.
 
 ```
 # Connection string that describes the host to be used and options.
@@ -39,7 +39,7 @@ The contents  of the ```/var/xrde2e-client/xrde2e.properties``` file can be seen
 # E.g. with username and password:
 # mongodb://user:password@localhost:27017/xrde2emonitoring?safe=true
 db.connectionString=mongodb://localhost:27017/xrde2emonitoring?safe=true
-# Security server URL/IP
+# Security Server URL/IP
 proxy=http://x.x.x.x/
 # Request interval in milliseconds
 interval=5000
@@ -142,7 +142,7 @@ After the configuration changes just restart the system.
 
 ### Using Mutual SSL Authentication
 
-Especially in a production environment it's a good idea to use mutual SSL authentication between the client and the client security server. This requires generating self-signed certificate for the client and importing it to the security server. Likewise, the security server's certificate must be imported to the client's trust store. In addition, the location of the keystore and truststore files must be defined in the ```docker-compose.yml``` file.
+Especially in a production environment it's a good idea to use mutual SSL authentication between the client and the client Security Server. This requires generating self-signed certificate for the client and importing it to the Security Server. Likewise, the Security Server's certificate must be imported to the client's trust store. In addition, the location of the keystore and truststore files must be defined in the ```docker-compose.yml``` file.
 
 ```
   xrde2e-client:
@@ -155,7 +155,7 @@ Especially in a production environment it's a good idea to use mutual SSL authen
       - JAVA_OPTS=-DpropertiesDirectory=/my/conf/ -Djavax.net.ssl.trustStore=/my/conf/xrde2eTrustStore.jks -Djavax.net.ssl.trustStorePassword=changeit -Djavax.net.ssl.keyStore=/my/conf/xrde2eKeyStore.jks -Djavax.net.ssl.keyStorePassword=changeit
  ```
 
-Import the internal certificate of the security server to the truststore of the client.
+Import the internal certificate of the Security Server to the truststore of the client.
 
 ```
 keytool -import -file cert.crt -alias secserver -keystore xrde2eTrustStore.jks
@@ -167,7 +167,7 @@ Create a new keystore file and a keypair for the client.
 keytool -genkey -keyalg RSA -alias client -keystore xrde2eKeyStore.jks -storepass changeit -validity 720 -keysize 2048
 ```
 
-Export the certificate from the keystore and add it to the security server under the same subsystem defined by the ```consumer``` property.
+Export the certificate from the keystore and add it to the Security Server under the same subsystem defined by the ```consumer``` property.
 
 ```
 keytool -export -alias selfsigned -keystore xrde2eKeyStore.jks -rfc -file xrde2e_X509_certificate.cer
