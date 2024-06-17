@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.0.3 - 2024-06-17
+- Release version 0.0.3
+
 ## 0.0.3-SNAPSHOT - 2024-06-16
 
 - Update Spring Boot from version `2.6.2` to `2.7.18`
