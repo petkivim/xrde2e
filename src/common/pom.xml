@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.pkrete</groupId>
         <artifactId>xrde2e</artifactId>
-        <version>0.0.3-SNAPSHOT</version>
+        <version>0.0.3</version>
     </parent>   
     <groupId>com.pkrete.xrde2e</groupId>
     <artifactId>common</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.3</version>
     <packaging>jar</packaging>
     <name>XRdE2E :: Common</name>
     <description>
