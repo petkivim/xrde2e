@@ -23,9 +23,14 @@ Each client can call only one client Security Server and each Security Server ca
 
 ### Build
 
+The build script 1) builds a Docker image for compiling the code, 2) compiles the code and 3) builds a Docker image
+for each module:
+
 ```
 ./build_docker_images.sh
 ```
+
+**Note!** The script uses the local Maven cache ($HOME/.m2) to store dependencies if the cache exists. Otherwise, the dependencies are stored inside the build container and must be downloaded again for each build.
 
 ### Configuration
 
