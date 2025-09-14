@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   xrde2e-ui:
     image: xrde2e-ui:latest
@@ -11,9 +11,9 @@ services:
     depends_on:
       - db
     volumes:
-      - /var/xrde2e-client:/my/conf:Z
+      - ./conf-example:/my/conf:Z
     environment:
-      - JAVA_OPTS=-DpropertiesDirectory=/my/conf/ -Dproxy=http://dummy-service:8081
+      - JAVA_OPTS=-DpropertiesDirectory=/my/conf/
     links:
       - db
       - dummy-service
@@ -30,8 +30,6 @@ services:
     command: mongod --dbpath=/data/db --noauth
     ports:
       - "27017:27017"
-    volumes:
-      - /var/mongodb:/data/db:Z
   dummy-service:
     image: list-methods-dummy-service:latest
     ports:

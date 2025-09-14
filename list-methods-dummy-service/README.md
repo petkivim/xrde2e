@@ -25,12 +25,14 @@ $ docker run -p 8081:8081 -d list-methods-dummy-service
 ```
 
 Run the whole XRdE2E stack using `listMethods` dummy service instead of a
-Security Server. More [information](../README.md#configuration) about required
-configuration.
+Security Server. The setup uses the [default configuration](conf-example/xrde2e.properties). More [information](../README.md#configuration) 
+about required configuration. Also, the results are not persisted which means that they are lost when the stack is
+destroyed.
 
 ```
 docker-compose up -d
 ```
+Once the stack is up and running, you can access the UI at [http://localhost/]().
 
 Follow log output. The output of each container is aggregated to a single log stream.
 
