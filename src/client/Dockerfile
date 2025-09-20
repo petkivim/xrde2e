@@ -1,5 +1,5 @@
 # Base java:11
-FROM eclipse-temurin:11-jre
+FROM eclipse-temurin:21-jre
 
 # Add Backend jar to container
 ADD target/client-*.jar client.jar
