@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.4-SNAPSHOT - 2025-09-20
+
+- Update supported Java version from Java 11 to Java 21
+- Change Docker base image from `eclipse-temurin:11-jre` to `eclipse-temurin:21-jre`
+- Update the XRd4J library version from `0.4.0` to `0.8.0`
+
 ## 0.0.3 - 2024-06-17
 - Release version 0.0.3
 

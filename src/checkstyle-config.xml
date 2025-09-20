@@ -129,7 +129,7 @@
             <property name="severity" value="warning"/>
         </module>
         <module name="ImportOrder">
-            <property name="groups" value="com.pkrete,org.niis,*,javax,java"/>
+            <property name="groups" value="com.pkrete,org.niis,*,jakarta,java"/>
             <property name="ordered" value="true"/>
             <property name="separated" value="true"/>
             <property name="option" value="bottom"/>
