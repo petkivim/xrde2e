@@ -56,8 +56,9 @@ public class E2EEventsController {
         return this.storageClient.getAllCurrent();
     }
 
-    @RequestMapping(method = GET, value = "/api/v1/history/{securityServer:.+}", produces = "application/json")
-    public List<E2EEvent> history(@PathVariable String securityServer, @RequestParam(value = "limit", defaultValue = "0") int limit) {
+    @RequestMapping(method = GET, value = "/api/v1/history/{securityServer}", produces = "application/json")
+    public List<E2EEvent> history(@PathVariable("securityServer") String securityServer,
+                                  @RequestParam(value = "limit", defaultValue = "0") int limit) {
         return this.storageClient.getHistorical(securityServer, limit);
     }
 }

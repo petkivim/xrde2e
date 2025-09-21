@@ -67,16 +67,6 @@ public class MongoDbManager extends AbstractMongoDbClient implements StorageMana
         super.connect(connectionString);
     }
 
-    /**
-     * Constructs and initializes a new MongoDbManager object.
-     *
-     * @param host database host
-     * @param port database port
-     */
-    public MongoDbManager(String host, int port) {
-        super.connect(host, port);
-    }
-
     @Override
     /**
      * Adds a new E2EEvent to the database.

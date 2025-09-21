@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.4-SNAPSHOT - 2025-09-21
+
+- Update Spring Boot from `2.7.18` to `3.5.6`
+- Update MongoDB from 3.4 to 7
+
 ## 0.0.4-SNAPSHOT - 2025-09-20
 
 - Update supported Java version from Java 11 to Java 21

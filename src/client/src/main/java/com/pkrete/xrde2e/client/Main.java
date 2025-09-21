@@ -91,8 +91,6 @@ public class Main {
         int deleteOlderThanFromCurrent = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN_CURRENT));
         int deleteOlderThanInterval = MILLISECONDS_TO_HOURS * MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DELETE_OLDER_THAN_INTERVAL));
         int threadInterval = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_THREAD_INTERVAL));
-        String dbHost = settings.getProperty(Constants.PROPERTIES_DB_HOST);
-        int dbPort = MessageHelper.strToInt(settings.getProperty(Constants.PROPERTIES_DB_PORT));
         String dbConnectionString = System.getProperty(Constants.PROPERTIES_DB_CONNECTION_STRING,
                 settings.getProperty(Constants.PROPERTIES_DB_CONNECTION_STRING));
 
@@ -102,8 +100,6 @@ public class Main {
         LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_DELETE_OLDER_THAN_CURRENT, deleteOlderThanFromCurrent);
         LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_DELETE_OLDER_THAN_INTERVAL, deleteOlderThanInterval);
         LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_THREAD_INTERVAL, threadInterval);
-        LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_DB_HOST, dbHost);
-        LOGGER.info(PROPS_LOG_PATTERN, Constants.PROPERTIES_DB_PORT, dbPort);
 
         consumer = ApplicationHelper.extractConsumer(settings.getProperty(Constants.PROPERTIES_CONSUMER));
         targets = ApplicationHelper.extractTargets(settings, consumer);
@@ -120,14 +116,9 @@ public class Main {
         LOGGER.info("Start processing.");
         // Create new storage manager
         StorageManager storageManager;
-        // Check if connection string has been defined
-        if (dbConnectionString != null && !dbConnectionString.isEmpty()) {
-            LOGGER.debug("Use {} for database connection.", Constants.PROPERTIES_DB_CONNECTION_STRING);
-            storageManager = new MongoDbManager(dbConnectionString);
-        } else {
-            storageManager = new MongoDbManager(dbHost, dbPort);
-            LOGGER.debug("Use {} and {} for database connection.", Constants.PROPERTIES_DB_HOST, Constants.PROPERTIES_DB_PORT);
-        }
+        LOGGER.debug("Use {} for database connection.", Constants.PROPERTIES_DB_CONNECTION_STRING);
+        storageManager = new MongoDbManager(dbConnectionString);
+
         // Initialize event queue processor
         E2EEventQueueProcessor eventQueueProcessor = new E2EEventQueueProcessor(storageManager);
         // Create new thread for event processing

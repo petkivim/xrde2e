@@ -23,11 +23,8 @@
  */
 package com.pkrete.xrde2e.client.mongodb;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoClientURI;
-import com.mongodb.ServerAddress;
-import com.mongodb.WriteConcern;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.event.ServerHeartbeatFailedEvent;
 import com.mongodb.event.ServerHeartbeatStartedEvent;
 import com.mongodb.event.ServerHeartbeatSucceededEvent;
@@ -57,30 +54,7 @@ public abstract class AbstractMongoDbClient implements ServerMonitorListener {
      */
     protected boolean connect(String connectionString) {
         try {
-            MongoClientURI uri = new MongoClientURI(connectionString);
-            this.mongoClient = new MongoClient(uri);
-        } catch (Exception ex) {
-            LOGGER.error(ex.getMessage(), ex);
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Opens a connection to the given host and port. Returns true if and only
-     * if the connection is opened, otherwise false.
-     *
-     * @param host MongoDb host
-     * @param port MongoDb port
-     * @return true if and only if the connection is opened, otherwise false
-     */
-    protected boolean connect(String host, int port) {
-        try {
-            MongoClientOptions clientOptions = new MongoClientOptions.Builder()
-                    .addServerMonitorListener(this)
-                    .writeConcern(WriteConcern.JOURNALED)
-                    .build();
-            this.mongoClient = new MongoClient(new ServerAddress(host, port), clientOptions);
+            this.mongoClient = MongoClients.create(connectionString);
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
             return false;
