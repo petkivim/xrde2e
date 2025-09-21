@@ -24,7 +24,7 @@ services:
     environment:
       - JAVA_OPTS=-Dspring.data.mongodb.host=db
   db:
-    image: mongo:3.4.0
+    image: mongo:7
     command: mongod --dbpath=/data/db --noauth
     ports:
       - "27017:27017"
