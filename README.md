@@ -40,7 +40,6 @@ The contents  of the ```/var/xrde2e-client/xrde2e.properties``` file can be seen
 
 ```
 # Connection string that describes the host to be used and options.
-# When connectionString is null or empty host and port are used.
 # E.g. with username and password:
 # mongodb://user:password@localhost:27017/xrde2emonitoring?safe=true
 db.connectionString=mongodb://localhost:27017/xrde2emonitoring?safe=true
@@ -109,7 +108,7 @@ In case it is not possible to access a Security Server, XRdE2E can be tested usi
 
 ### Using Multiple Clients
 
-Using multipe clients requires some changes to [docker-compose.yml](https://github.com/petkivim/xrde2e/blob/master/docker-compose.yml) file. Below there's the client configuration for a single client.
+Using multiple clients requires some changes to [docker-compose.yml](https://github.com/petkivim/xrde2e/blob/master/docker-compose.yml) file. Below there's the client configuration for a single client.
 
 ```
 xrde2e-client:
@@ -225,7 +224,7 @@ Backend password must be updated to ```docker-compose.yml``` file. In addition, 
       - /var/mongodb:/data/db:Z
 ```
 
-Also client's ```db.connectionString``` property in the ```xrde2e.properties``` file must be updated.
+Also, client's ```db.connectionString``` property in the ```xrde2e.properties``` file must be updated.
 
 ```
 db.connectionString=mongodb://xrde2e-client:{XRDE2E_CLIENT_PWD}@db:27017/xrde2emonitoring?safe=true
