@@ -190,19 +190,19 @@ docker exec -i -t xrde2e_db_1 bash
 First, create admin user. Replace ```{ADMIN_PWD}``` with your own password.
 
 ```
-mongo admin --eval "db.createUser({ user: 'admin', pwd: '{ADMIN_PWD}', roles: [ { role: 'userAdminAnyDatabase', db: 'admin' } ] });"
+mongosh admin --eval "db.createUser({ user: 'admin', pwd: '{ADMIN_PWD}', roles: [ { role: 'userAdminAnyDatabase', db: 'admin' } ] });"
 ```
 
 Then, create a new user for the client(s). Replace ```{ADMIN_PWD}``` with the admin password and ```{XRDE2E_CLIENT_PWD}``` with the password that you want to set for the client(s).
 
 ```
-mongo -u "admin" -p "{ADMIN_PWD}" --authenticationDatabase "admin" xrde2emonitoring --eval "db.createUser({ user: 'xrde2e-client', pwd: '{XRDE2E_CLIENT_PWD}', roles: [ { role: 'readWrite', db: 'xrde2emonitoring' } ] });"
+mongosh -u "admin" -p "{ADMIN_PWD}" --authenticationDatabase "admin" xrde2emonitoring --eval "db.createUser({ user: 'xrde2e-client', pwd: '{XRDE2E_CLIENT_PWD}', roles: [ { role: 'readWrite', db: 'xrde2emonitoring' } ] });"
 ```
 
 At last, create a new user for the backend. Replace ```{ADMIN_PWD}``` with the admin password and ```{XRDE2E_BACKEND_PWD}``` with the password that you want to set for the backend.
 
 ```
-mongo -u "admin" -p "{ADMIN_PWD}" --authenticationDatabase "admin" xrde2emonitoring --eval "db.createUser({ user: 'xrde2e-backend', pwd: '{XRDE2E_BACKEND_PWD}', roles: [ { role: 'read', db: 'xrde2emonitoring' } ] });"
+mongosh -u "admin" -p "{ADMIN_PWD}" --authenticationDatabase "admin" xrde2emonitoring --eval "db.createUser({ user: 'xrde2e-backend', pwd: '{XRDE2E_BACKEND_PWD}', roles: [ { role: 'read', db: 'xrde2emonitoring' } ] });"
 ```
 
 Backend password must be updated to ```docker-compose.yml``` file. In addition, MongoDB's authentication must be switched on.
